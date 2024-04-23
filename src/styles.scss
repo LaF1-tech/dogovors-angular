@@ -1,1 +1,66 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@use '@angular/material-experimental' as matx;
+
+@import "../node_modules/@likdan/form-builder-material/public/form.css";
+
+@include mat.core();
+
+$m3-dark-theme: matx.define-theme((
+  color: (
+    theme-type: dark,
+    primary: matx.$m3-violet-palette,
+    tertiary: matx.$m3-blue-palette,
+  )
+));
+
+$m3-light-theme: matx.define-theme((
+  color: (
+    primary: matx.$m3-violet-palette,
+    tertiary: matx.$m3-blue-palette,
+  )
+));
+
+.dark-theme {
+  @include mat.all-component-themes($m3-dark-theme);
+}
+
+:root, .light-theme {
+  @include mat.all-component-themes($m3-light-theme);
+}
+
+* {
+  font-family: "Roboto Flex", serif;
+}
+
+:root {
+  --primary-background-color: #B8C8D7;
+  --secondary-background-color: #D5EA81;
+  --primary-color: #AF9CE3;
+  --secondary-color: #F2EFF5;
+  --text-color: #070B28;
+}
+
+body {
+  margin: 0;
+  background: var(--primary-background-color);
+}
+
+.form-main {
+  background: var(--secondary-background-color);
+  border-radius: 23px;
+  padding: 20px;
+  min-width: 300px;
+  color: var(--text-color);
+  width: 25%;
+}
+
+.main-container {
+  display: flex;
+  padding: 19px;
+  justify-content: center;
+}
+
+@font-face {
+  font-family: 'Roboto Flex';
+  src: url("../public/fonts/RobotoFlex-Regular.ttf") format("truetype");
+}
