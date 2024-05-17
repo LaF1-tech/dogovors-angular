@@ -1,0 +1,14 @@
+.form-main {
+  background: var(--secondary-background-color);
+  border-radius: 23px;
+  padding: 20px;
+  min-width: 300px;
+  color: var(--text-color);
+  width: 25%;
+}
+
+.main-container {
+  display: flex;
+  padding: 19px;
+  justify-content: center;
+}

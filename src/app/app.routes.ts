@@ -1,3 +1,41 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  {
+    path: "login",
+    loadComponent: () => import("src/app/pages/login-page/login-page.component").then((m) => m.LoginPageComponent),
+  },
+  {
+    path: "admin",
+    loadComponent: () => import("src/app/pages/admin/admin.component").then((m) => m.AdminComponent),
+    children: [
+      {
+        path: "create",
+        loadComponent: () => import("src/app/pages/create-user/create-user.component").then((m) => m.CreateUserComponent)
+      }, {
+        path: "applications",
+        loadComponent: () => import("src/app/pages/applications/applications.component").then((m) => m.ApplicationsComponent)
+      }, {
+        path: "specializations",
+        loadComponent: () => import("src/app/pages/specializations/specializations.component").then((m) => m.SpecializationsComponent)
+      }, {
+        path: "educationalestablishments",
+        loadComponent: () => import("src/app/pages/eduestablishments/eduestablishments.component").then((m) => m.EduestablishmentsComponent)
+      }, {
+        path: "templates",
+        loadComponent: () => import("src/app/pages/templates/templates.component").then((m) => m.TemplatesComponent)
+      }, {
+        path: "contracts",
+        loadComponent: () => import("src/app/pages/contracts/contracts.component").then((m) => m.ContractsComponent)
+      },
+    ],
+  },
+  {
+    path: "apply",
+    loadComponent: () => import("src/app/pages/main-page/main-page.component").then(c => c.MainPageComponent)
+  },
+  {
+    path: "**",
+    redirectTo: "apply"
+  }
+];

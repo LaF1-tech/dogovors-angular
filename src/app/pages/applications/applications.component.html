@@ -1,0 +1,81 @@
+<div class="main-container">
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="educational_establishment_name">
+      <th mat-header-cell *matHeaderCellDef> Название учреждения образования</th>
+      <td mat-cell *matCellDef="let element"> {{ element.educational_establishment_name }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="specialization_name">
+      <th mat-header-cell *matHeaderCellDef> Специальность</th>
+      <td mat-cell *matCellDef="let element"> {{ element.specialization_name }}</td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="last_name">
+      <th mat-header-cell *matHeaderCellDef> Фамилия</th>
+      <td mat-cell *matCellDef="let element"> {{ element.last_name }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Имя</th>
+      <td mat-cell *matCellDef="let element"> {{ element.name }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="middle_name">
+      <th mat-header-cell *matHeaderCellDef> Отчество</th>
+      <td mat-cell *matCellDef="let element"> {{ element.middle_name }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="types">
+      <th mat-header-cell *matHeaderCellDef> Шаблон</th>
+      <td mat-cell *matCellDef="let element"> {{ Object.entries(element.types) }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="phone_number">
+      <th mat-header-cell *matHeaderCellDef> Номер телефона</th>
+      <td mat-cell *matCellDef="let element"> {{ element.phone_number }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="application_status">
+      <th mat-header-cell *matHeaderCellDef> Статус заявки</th>
+      <td mat-cell *matCellDef="let element"> {{ element.application_status }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="execution_date">
+      <th mat-header-cell *matHeaderCellDef> Дата исполнения</th>
+      <td mat-cell *matCellDef="let element"> {{ element.execution_date }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="expiration_date">
+      <th mat-header-cell *matHeaderCellDef> Дата окончания</th>
+      <td mat-cell *matCellDef="let element"> {{ element.expiration_date }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actionbuttons">
+      <th mat-header-cell *matHeaderCellDef> Действие</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-flat-button>Одобрить</button>
+        <button mat-flat-button>Отклонить</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10]"
+                 showFirstLastButtons
+                 style="background-color: var(--secondary-background-color)"
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>
