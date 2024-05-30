@@ -1,9 +1,11 @@
 <div class="main-container">
-  <table mat-table [dataSource]="dataSource">
+  <button mat-button>Добавить</button>
+
+  <table mat-table matSort [dataSource]="dataSource">
 
     <!-- Position Column -->
     <ng-container matColumnDef="template_name">
-      <th mat-header-cell *matHeaderCellDef> Имя шаблона</th>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Имя шаблона</th>
       <td mat-cell *matCellDef="let element"> {{ element.template_name }}</td>
     </ng-container>
 
@@ -11,7 +13,7 @@
       <th mat-header-cell *matHeaderCellDef> Действия</th>
       <td mat-cell *matCellDef="let element">
         <button mat-flat-button>Редактировать</button>
-        <button mat-flat-button>Удалить</button>
+        <button mat-flat-button (click)="deleteTemplate(element.template_id)">Удалить</button>
       </td>
     </ng-container>
 

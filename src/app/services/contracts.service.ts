@@ -13,4 +13,8 @@ export class ContractsService {
     return this.http.get<{ list: Contract[] }>("/api/v1/contracts")
       .pipe(map(e => e.list))
   }
+
+  downloadPDF(id: number): Observable<Blob> {
+    return this.http.get(`/api/v1/contracts/pdf/${id}`, {responseType: 'blob'})
+  }
 }

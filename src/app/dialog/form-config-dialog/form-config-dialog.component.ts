@@ -5,6 +5,7 @@ import {Buttons} from "@likdan/form-builder-material";
 
 export interface Data {
   template_id: number
+  initial: any
   controls: FormConfigControls
 }
 
@@ -24,6 +25,7 @@ export class FormConfigDialogComponent {
 
   config = <FormConfig<any>>{
     controls: this.data.controls,
+    initialValue: this.data.initial,
     submit: {
       button: Buttons.Submit.Flat,
       buttonText: "Подтвердить",

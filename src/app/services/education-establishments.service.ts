@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {map, Observable} from "rxjs";
+import {map, Observable, take} from "rxjs";
 import {EducationalEstablishment} from "../models/educationalestablishment";
 import {RawItem} from "@likdan/form-builder-material";
 
@@ -20,5 +20,20 @@ export class EducationEstablishmentsService {
       value: e.educational_establishment_id,
       display: e.educational_establishment_name
     })))
+  }
+
+  deleteEduEstab(id: number) {
+    return this.http.delete(`/api/v1/ee/${id}`)
+  }
+
+  addEduEstab(educationalEstablishment: any) {
+    return this.http.post('/api/v1/ee/', educationalEstablishment)
+  }
+
+  editEduEstab(educationalEstablishment: any, id: number) {
+    return this.http.patch('/api/v1/ee', {
+      ...educationalEstablishment,
+      educational_establishment_id: id
+    })
   }
 }

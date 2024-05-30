@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {map, Observable} from "rxjs";
+import {map, Observable, take} from "rxjs";
 import {Application} from "../models/application";
 
 @Injectable({
@@ -12,5 +12,23 @@ export class ApplicationsService {
   getApplications(): Observable<Application[]> {
     return this.http.get<{ list: Application[] }>("/api/v1/applications")
       .pipe(map(e => e.list))
+  }
+
+  makeApproved(id: number) {
+    this.http.patch('/api/v1/applications', {
+      id: id,
+      application_status: 'Обработано'
+    })
+      .pipe(take(1))
+      .subscribe()
+  }
+
+  makeRejected(id: number) {
+    this.http.patch('/api/v1/applications', {
+      id: id,
+      application_status: 'Отказано'
+    })
+      .pipe(take(1))
+      .subscribe()
   }
 }

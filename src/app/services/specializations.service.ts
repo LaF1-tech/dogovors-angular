@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {map, Observable} from "rxjs";
+import {map, Observable, take} from "rxjs";
 import {RawItem} from "@likdan/form-builder-material";
 import {Specializations} from "../models/specializations";
 
@@ -20,5 +20,20 @@ export class SpecializationsService {
       value: e.specialization_id,
       display: e.specialization_name
     })))
+  }
+
+  deleteSpecialization(id: number) {
+    return this.http.delete(`/api/v1/specializations/${id}`)
+  }
+
+  addSpecialization(specialization: any) {
+    return this.http.post("/api/v1/specializations", specialization)
+  }
+
+  editSpecialization(specialization: any, id: number) {
+    return this.http.patch("/api/v1/specializations", {
+      ...specialization,
+      specialization_id: id,
+    })
   }
 }
