@@ -44,7 +44,7 @@ const TREE_DATA: FoodNode[] = [
   },
   {
     name: 'Сменить пароль',
-    url: ''
+    url: '/chart'
   },
 ];
 

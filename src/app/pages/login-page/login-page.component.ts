@@ -1,9 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {HeaderComponent} from "../../components/header/header.component";
 import {FooterComponent} from "../../components/footer/footer.component";
 import {FormBuilderComponent, FormConfig, sendHttpRequestAndSubscribe} from "@likdan/form-builder-core";
 import {Buttons, Controls} from "@likdan/form-builder-material";
 import {Validators} from "@angular/forms";
+import {pipe, tap} from "rxjs";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -17,6 +19,8 @@ import {Validators} from "@angular/forms";
   styleUrl: './login-page.component.scss'
 })
 export class LoginPageComponent {
+  private router = inject(Router)
+
   form = <FormConfig<any>>{
     controls: {
       username: {
@@ -41,6 +45,7 @@ export class LoginPageComponent {
           url: "/api/v1/users/login",
           method: "POST",
           sendOnInvalidValidation: false,
+          pipeline: pipe(tap(()=> this.router.navigate(['/admin'])))
         }
       )
     }

@@ -35,6 +35,10 @@ export const routes: Routes = [
     loadComponent: () => import("src/app/pages/main-page/main-page.component").then(c => c.MainPageComponent)
   },
   {
+    path: "chart",
+    loadComponent: () => import("src/app/pages/charts/charts.component").then(c => c.ChartsComponent)
+  },
+  {
     path: "**",
     redirectTo: "apply"
   }

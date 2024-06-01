@@ -13,7 +13,7 @@ import {Validators} from "@angular/forms";
 import {EducationEstablishmentsService} from "../../services/education-establishments.service";
 import {SpecializationsService} from "../../services/specializations.service";
 import {TemplatesService} from "../../services/templates.service";
-import {concatMap, from, map, mergeMap, Observable, of, tap, toArray, zip} from "rxjs";
+import {concatMap, from, map, mergeMap, Observable, of, pipe, tap, toArray, zip} from "rxjs";
 import {Template} from "../../models/templates";
 import {MatDialog} from "@angular/material/dialog";
 import {FormConfigDialogComponent} from "../../dialog/form-config-dialog/form-config-dialog.component";
@@ -95,6 +95,10 @@ export class MainPageComponent {
         url: "/api/v1/applications/create",
         method: "POST",
         sendOnInvalidValidation: false,
+        pipeline: pipe(tap(() => {
+          alert('Заявка оставлена.')
+          window.location.reload();
+        }))
       }, this.loadTemplatesAdditionalData.bind(this))
     }
   }
