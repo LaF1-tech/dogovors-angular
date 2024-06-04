@@ -4,6 +4,7 @@ import {FormBuilderComponent, FormConfig, sendHttpRequestAndSubscribe} from "@li
 import {HeaderComponent} from "../../components/header/header.component";
 import {Buttons, Controls} from "@likdan/form-builder-material";
 import {Validators} from "@angular/forms";
+import {pipe, tap} from "rxjs";
 
 @Component({
   selector: 'app-create-user',
@@ -53,7 +54,11 @@ export class CreateUserComponent {
       onSubmit: sendHttpRequestAndSubscribe({
         url: "/api/v1/users/signup",
         method: "POST",
-        sendOnInvalidValidation: false,
+        pipeline: pipe(tap(()=> {
+          alert('Пользователь создан')
+          window.location.reload();
+        })),
+        sendOnInvalidValidation: false
       })
     }
   }

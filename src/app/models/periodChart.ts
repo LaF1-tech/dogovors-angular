@@ -1,4 +1,4 @@
-export default interface ContractChart {
+export default interface PeriodChart {
   period: string,
   contract_count: number,
 }

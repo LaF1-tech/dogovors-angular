@@ -1,9 +1,9 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {BaseChartDirective} from "ng2-charts";
-import {ContractsService} from "../../services/contracts.service";
-import ContractChart from "../../models/ContractChart";
+import PeriodChart from "../../../models/periodChart";
 import {MatButton} from "@angular/material/button";
 import {take} from "rxjs";
+import {ChartsService} from "../../../services/charts.service";
 
 @Component({
   selector: 'app-charts',
@@ -12,14 +12,13 @@ import {take} from "rxjs";
     BaseChartDirective,
     MatButton
   ],
-  templateUrl: './charts.component.html',
-  styleUrl: './charts.component.scss'
+  templateUrl: './period-chart.component.html',
+  styleUrl: './period-chart.component.scss'
 })
-export class ChartsComponent implements OnInit {
-  constructor() {
-  }
+export class PeriodChartComponent implements OnInit {
+  constructor() {}
 
-  private contractsService = inject(ContractsService)
+  private chartsService = inject(ChartsService);
   public SystemName: string = "Договора"
 
   public lineChartData: Array<number> = []
@@ -27,7 +26,7 @@ export class ChartsComponent implements OnInit {
   public labelMFL: Array<any> = [];
 
   getChartData() {
-    this.contractsService.getChartContracts().pipe(take(1)).subscribe((data: ContractChart[]) => {
+    this.chartsService.getPeriodChartData().pipe(take(1)).subscribe((data: PeriodChart[]) => {
       this.lineChartData = data.map(contract => contract.contract_count);
       this.lineChartLabels = data.map(contract => contract.period);
       this.updateChartData();
@@ -67,5 +66,4 @@ export class ChartsComponent implements OnInit {
     },
   };
 
-  protected readonly console = console;
 }

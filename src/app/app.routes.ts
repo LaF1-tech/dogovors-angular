@@ -35,8 +35,20 @@ export const routes: Routes = [
     loadComponent: () => import("src/app/pages/main-page/main-page.component").then(c => c.MainPageComponent)
   },
   {
-    path: "chart",
-    loadComponent: () => import("src/app/pages/charts/charts.component").then(c => c.ChartsComponent)
+    path: "periodchart",
+    loadComponent: () => import("src/app/pages/charts/periodChart/period-chart.component").then(c => c.PeriodChartComponent)
+  },
+  {
+    path: "educhart",
+    loadComponent: () => import("src/app/pages/charts/educationalestablishments-chart/educationalestablishments-chart.component").then(c => c.EducationalestablishmentsChartComponent)
+  },
+  {
+    path: "specializationschart",
+    loadComponent: () => import("src/app/pages/charts/specialization-chart/specialization-chart.component").then(c => c.SpecializationChartComponent)
+  },
+  {
+    path: "templateschart",
+    loadComponent: () => import("src/app/pages/charts/template-chart/template-chart.component").then(c => c.TemplateChartComponent)
   },
   {
     path: "**",
