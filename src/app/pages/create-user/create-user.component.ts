@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {FooterComponent} from "../../components/footer/footer.component";
-import {FormBuilderComponent, FormConfig, sendHttpRequestAndSubscribe} from "@likdan/form-builder-core";
+import {FormBuilderComponent, FormConfig} from "@likdan/form-builder-core";
 import {HeaderComponent} from "../../components/header/header.component";
 import {Buttons, Controls} from "@likdan/form-builder-material";
 import {Validators} from "@angular/forms";
-import {pipe, tap} from "rxjs";
+import {take} from "rxjs";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-create-user',
@@ -18,6 +19,8 @@ import {pipe, tap} from "rxjs";
   styleUrl: './create-user.component.scss'
 })
 export class CreateUserComponent {
+  private userService = inject(UserService)
+
   form = <FormConfig<any>>{
     controls: {
       username: {
@@ -43,22 +46,13 @@ export class CreateUserComponent {
         },
         validators: [Validators.required],
       },
-      makeAdmin: {
-        label: "Администратор",
-        type: Controls.checkbox,
-      },
     },
     submit: {
       button: Buttons.Submit.Flat,
       buttonText: "Создать",
-      onSubmit: sendHttpRequestAndSubscribe({
-        url: "/api/v1/users/signup",
-        method: "POST",
-        pipeline: pipe(tap(()=> {
-          alert('Пользователь создан')
-          window.location.reload();
-        })),
-        sendOnInvalidValidation: false
+      onSubmit: (user) => this.userService.createUser(user.value).pipe(take(1)).subscribe(() => {
+        alert("Пользователь создан!")
+        window.location.reload();
       })
     }
   }

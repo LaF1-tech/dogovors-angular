@@ -2,7 +2,6 @@ import {Component, inject} from '@angular/core';
 import {FooterComponent} from "../../components/footer/footer.component";
 import {
   ControlDescriptor,
-  ControlType,
   FormBuilderComponent,
   FormConfig, FormConfigControl, FormConfigControls,
   sendHttpRequestAndSubscribe, SubmitEvent
@@ -13,7 +12,7 @@ import {Validators} from "@angular/forms";
 import {EducationEstablishmentsService} from "../../services/education-establishments.service";
 import {SpecializationsService} from "../../services/specializations.service";
 import {TemplatesService} from "../../services/templates.service";
-import {concatMap, from, map, mergeMap, Observable, of, pipe, tap, toArray, zip} from "rxjs";
+import {concatMap, from, map, Observable, pipe, tap, toArray, zip} from "rxjs";
 import {Template} from "../../models/templates";
 import {MatDialog} from "@angular/material/dialog";
 import {FormConfigDialogComponent} from "../../dialog/form-config-dialog/form-config-dialog.component";
@@ -111,7 +110,14 @@ export class MainPageComponent {
       .pipe(concatMap(tt => from(tt)))
       .pipe(concatMap(cc => this.openFormConfigDialog(cc)))
       .pipe(toArray())
-      .pipe(map(v => <any>{...event.value, types: Object.fromEntries(v.map(i => [i.template_id, i.value]))}))
+      .pipe(map(v => {
+        const types = event.value.types.reduce((acc: { [key: number]: any }, typeId: number) => {
+          const foundType = v.find(i => i.template_id === typeId);
+          acc[typeId] = foundType ? foundType.value : {};
+          return acc;
+        }, {});
+        return <any>{...event.value, types};
+      }))
       .pipe(tap(console.log))
   }
 

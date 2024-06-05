@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {map, Observable, take} from "rxjs";
+import {map, Observable} from "rxjs";
 import {EducationalEstablishment} from "../models/educationalestablishment";
 import {RawItem} from "@likdan/form-builder-material";
 
@@ -17,8 +17,7 @@ export class EducationEstablishmentsService {
 
   getEducationalEstablishmentForSelect(): Observable<RawItem[]> {
     return this.getEducationalEstablishments().pipe(map(ee => ee.map(e => <RawItem>{
-      value: e.educational_establishment_id,
-      display: e.educational_establishment_name
+      value: e.educational_establishment_id, display: e.educational_establishment_name
     })))
   }
 
@@ -27,13 +26,12 @@ export class EducationEstablishmentsService {
   }
 
   addEduEstab(educationalEstablishment: any) {
-    return this.http.post('/api/v1/ee/', educationalEstablishment)
+    return this.http.post('/api/v1/ee', educationalEstablishment)
   }
 
   editEduEstab(educationalEstablishment: any, id: number) {
     return this.http.patch('/api/v1/ee', {
-      ...educationalEstablishment,
-      educational_establishment_id: id
+      ...educationalEstablishment, educational_establishment_id: id
     })
   }
 }
