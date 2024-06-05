@@ -5,10 +5,9 @@ import {MatButton} from "@angular/material/button";
 import {Application} from "../../models/application";
 import {ApplicationsService} from "../../services/applications.service";
 import {take} from "rxjs";
-import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
+import {MatSort, MatSortHeader} from "@angular/material/sort";
 import {DatePipe, JsonPipe} from "@angular/common";
-import {MatInput} from "@angular/material/input";
-import {MatInputModule} from '@angular/material/input';
+import {MatInput, MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
 
@@ -20,12 +19,11 @@ import {FormsModule} from '@angular/forms';
   styleUrl: './applications.component.scss'
 })
 export class ApplicationsComponent implements AfterViewInit {
-  private applicationsService = inject(ApplicationsService);
   displayedColumns: string[] = ['educational_establishment_name', 'specialization_name', 'last_name', 'name', 'middle_name', 'phone_number', 'types', 'application_status', 'execution_date', 'expiration_date', 'actionbuttons'];
   dataSource = new MatTableDataSource<Application>();
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  private applicationsService = inject(ApplicationsService);
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

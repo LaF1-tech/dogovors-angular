@@ -17,15 +17,34 @@ import {Router} from "@angular/router";
   styleUrl: './period-chart.component.scss'
 })
 export class PeriodChartComponent implements OnInit {
-  constructor() {}
-
-  private chartsService = inject(ChartsService);
-  private router = inject(Router)
-
   public SystemName: string = "Договора"
   public lineChartData: Array<number> = []
   public lineChartLabels: Array<string> = [];
   public labelMFL: Array<any> = [];
+  public lineChartOptions: any = {
+    responsive: true,
+    scales: {
+      x: {},
+      y: {
+        min: 0,
+      },
+    },
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Количество оформленных договоров на период времени",
+      },
+      maintainAspectRatio: false
+    },
+  };
+  private chartsService = inject(ChartsService);
+  private router = inject(Router)
+
+  constructor() {
+  }
 
   getChartData() {
     this.chartsService.getPeriodChartData().pipe(take(1)).subscribe((data: PeriodChart[]) => {
@@ -48,27 +67,7 @@ export class PeriodChartComponent implements OnInit {
     ];
   }
 
-  public lineChartOptions: any = {
-    responsive: true,
-    scales: {
-      x: {},
-      y: {
-        min: 0,
-      },
-    },
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Количество оформленных договоров на период времени",
-      },
-      maintainAspectRatio: false
-    },
-  };
-
-  backToAdmin(){
+  backToAdmin() {
     this.router.navigate(['/admin/charts'])
   }
 }

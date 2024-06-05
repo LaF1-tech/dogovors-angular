@@ -1,4 +1,4 @@
-.container{
+.container {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -13,13 +13,13 @@
   width: 100%;
 }
 
-.buttons{
+.buttons {
   display: flex;
   justify-content: space-between;
   padding-bottom: 12px;
 }
 
-.necessary_data{
+.necessary_data {
   display: flex;
   flex-direction: column;
   align-items: center;

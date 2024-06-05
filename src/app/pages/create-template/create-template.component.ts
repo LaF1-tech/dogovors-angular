@@ -28,10 +28,6 @@ export class CreateTemplateComponent implements OnInit {
     {value: 'daterange', viewValue: 'Промежуток даты'},
     {value: 'boolean', viewValue: 'Логический'},
   ];
-
-  private fb = inject(FormBuilder)
-  private templateService = inject(TemplatesService);
-  private router = inject(Router)
   public defval: string = "<html lang=\"ru\">\n" +
     "<head>\n" +
     "    <meta charset=\"UTF-8\">\n" +
@@ -43,9 +39,14 @@ export class CreateTemplateComponent implements OnInit {
     "\n" +
     "</body>\n" +
     "</html>"
-
   templateForm!: FormGroup;
+  private fb = inject(FormBuilder)
+  private templateService = inject(TemplatesService);
+  private router = inject(Router)
 
+  get necessaryData(): FormArray {
+    return this.templateForm.get('necessary_data') as FormArray;
+  }
 
   ngOnInit(): void {
     this.templateForm = this.fb.group({
@@ -53,10 +54,6 @@ export class CreateTemplateComponent implements OnInit {
       template_content: ['', Validators.required],
       necessary_data: this.fb.array([])
     });
-  }
-
-  get necessaryData(): FormArray {
-    return this.templateForm.get('necessary_data') as FormArray;
   }
 
   addNecessaryData(): void {

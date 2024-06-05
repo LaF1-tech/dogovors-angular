@@ -14,20 +14,20 @@ import {Router} from "@angular/router";
 export class MainComponent {
   private router = inject(Router)
 
-  toPeriodChart(){
+  toPeriodChart() {
     this.router.navigate(['/periodchart'])
   }
 
-  toEducationalChart(){
+  toEducationalChart() {
     this.router.navigate(['/educhart'])
 
   }
 
-  toSpecializationsChart(){
+  toSpecializationsChart() {
     this.router.navigate(['/specializationschart'])
   }
 
-  toTemplatesChart(){
+  toTemplatesChart() {
     this.router.navigate(['/templateschart'])
   }
 }

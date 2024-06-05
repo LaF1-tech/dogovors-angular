@@ -5,7 +5,7 @@ import {FormBuilderComponent, FormConfig, sendHttpRequestAndSubscribe} from "@li
 import {Buttons, Controls} from "@likdan/form-builder-material";
 import {Validators} from "@angular/forms";
 import {pipe, tap} from "rxjs";
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -26,7 +26,7 @@ export class LoginPageComponent {
       username: {
         label: "Имя пользователя",
         type: Controls.textInput,
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.minLength(3)],
       },
       password: {
         label: "Пароль",
@@ -34,7 +34,7 @@ export class LoginPageComponent {
         additionalFields: {
           type: "password"
         },
-        validators: [Validators.required],
+        validators: [Validators.required, Validators.minLength(4)],
       },
     },
     submit: {
@@ -45,7 +45,7 @@ export class LoginPageComponent {
           url: "/api/v1/users/login",
           method: "POST",
           sendOnInvalidValidation: false,
-          pipeline: pipe(tap(()=> this.router.navigate(['/admin'])))
+          pipeline: pipe(tap(() => this.router.navigate(['/admin'])))
         }
       )
     }

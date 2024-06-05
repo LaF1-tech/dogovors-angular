@@ -1,12 +1,12 @@
-<button mat-button (click)="this.backToAdmin()">back like i never left</button>
+<button (click)="this.backToAdmin()" mat-button>back like i never left</button>
 
-<div style="display: block;" class="chart">
-  <canvas baseChart
-          [datasets]="labelMFL"
+<div class="chart" style="display: block;">
+  <canvas [datasets]="labelMFL"
+          [height]="125"
           [labels]="lineChartLabels"
           [options]="lineChartOptions"
           [type]="'bar'"
-          [height]="125"
+          baseChart
   ></canvas>
 
 </div>

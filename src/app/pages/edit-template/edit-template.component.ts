@@ -27,12 +27,6 @@ export class EditTemplateComponent implements OnInit {
     {value: 'daterange', viewValue: 'Промежуток даты'},
     {value: 'boolean', viewValue: 'Логический'},
   ];
-
-  private fb = inject(FormBuilder)
-  private templateService = inject(TemplatesService);
-  private router = inject(Router)
-  private route = inject(ActivatedRoute);
-
   public defval: string = "<html lang=\"ru\">\n" +
     "<head>\n" +
     "    <meta charset=\"UTF-8\">\n" +
@@ -44,9 +38,16 @@ export class EditTemplateComponent implements OnInit {
     "\n" +
     "</body>\n" +
     "</html>"
-
   templateForm!: FormGroup;
   templateId!: number;
+  private fb = inject(FormBuilder)
+  private templateService = inject(TemplatesService);
+  private router = inject(Router)
+  private route = inject(ActivatedRoute);
+
+  get necessaryData(): FormArray {
+    return this.templateForm.get('necessary_data') as FormArray;
+  }
 
   ngOnInit(): void {
     this.templateId = Number(this.route.snapshot.paramMap.get('id'));
@@ -69,10 +70,6 @@ export class EditTemplateComponent implements OnInit {
         }));
       });
     });
-  }
-
-  get necessaryData(): FormArray {
-    return this.templateForm.get('necessary_data') as FormArray;
   }
 
   addNecessaryData(): void {

@@ -17,16 +17,34 @@ import {Router} from "@angular/router";
   styleUrl: './specialization-chart.component.scss'
 })
 export class SpecializationChartComponent implements OnInit {
-  constructor() {
-  }
-
-  private chartsService = inject(ChartsService);
-  private router = inject(Router)
-
   public SystemName: string = "Договора"
   public lineChartData: Array<number> = []
   public lineChartLabels: Array<string> = [];
   public labelMFL: Array<any> = [];
+  public lineChartOptions: any = {
+    responsive: true,
+    scales: {
+      x: {},
+      y: {
+        min: 0,
+      },
+    },
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Количество оформленных договоров по Специальности",
+      },
+      maintainAspectRatio: false
+    },
+  };
+  private chartsService = inject(ChartsService);
+  private router = inject(Router)
+
+  constructor() {
+  }
 
   getChartData() {
     this.chartsService.getSpecializationsChartData().pipe(take(1)).subscribe((data: SpecializationsChart[]) => {
@@ -49,27 +67,7 @@ export class SpecializationChartComponent implements OnInit {
     ];
   }
 
-  public lineChartOptions: any = {
-    responsive: true,
-    scales: {
-      x: {},
-      y: {
-        min: 0,
-      },
-    },
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Количество оформленных договоров по Специальности",
-      },
-      maintainAspectRatio: false
-    },
-  };
-
-  backToAdmin(){
+  backToAdmin() {
     this.router.navigate(['/admin/charts'])
   }
 }

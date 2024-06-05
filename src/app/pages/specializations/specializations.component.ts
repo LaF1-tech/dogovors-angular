@@ -24,14 +24,12 @@ import {Validators} from "@angular/forms";
   styleUrl: './specializations.component.scss'
 })
 export class SpecializationsComponent implements AfterViewInit {
-  private specializationsService = inject(SpecializationsService);
-  private dialog = inject(MatDialog)
-
   displayedColumns: string[] = ['specialization_name', 'actionbuttons'];
   dataSource = new MatTableDataSource<Specializations>();
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  private specializationsService = inject(SpecializationsService);
+  private dialog = inject(MatDialog)
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -57,26 +55,6 @@ export class SpecializationsComponent implements AfterViewInit {
       .subscribe(() => this.fetchData())
   }
 
-  private openDialog(value?: any): Observable<any> {
-    return this.dialog.open(FormConfigDialogComponent, {
-      data: {
-        controls: <FormConfigControls>{
-          specialization_id:{
-            label: "",
-            type: Controls.select,
-          },
-          specialization_name: {
-            type: Controls.textInput,
-            label: "Имя специальности",
-            validators: [Validators.required],
-          }
-        },
-        initial: value
-      },
-      disableClose: true,
-    }).afterClosed()
-  }
-
   add() {
     this.openDialog()
       .pipe(filter(v => !!v))
@@ -97,6 +75,26 @@ export class SpecializationsComponent implements AfterViewInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  private openDialog(value?: any): Observable<any> {
+    return this.dialog.open(FormConfigDialogComponent, {
+      data: {
+        controls: <FormConfigControls>{
+          specialization_id: {
+            label: "",
+            type: Controls.select,
+          },
+          specialization_name: {
+            type: Controls.textInput,
+            label: "Имя специальности",
+            validators: [Validators.required],
+          }
+        },
+        initial: value
+      },
+      disableClose: true,
+    }).afterClosed()
   }
 
 }

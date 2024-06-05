@@ -4,12 +4,8 @@ import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {MatButton} from "@angular/material/button";
 import {Template} from "../../models/templates";
 import {TemplatesService} from "../../services/templates.service";
-import {filter, Observable, switchMap, take} from "rxjs";
+import {take} from "rxjs";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
-import {FormConfigDialogComponent} from "../../dialog/form-config-dialog/form-config-dialog.component";
-import {FormConfigControls} from "@likdan/form-builder-core";
-import {Controls} from "@likdan/form-builder-material";
-import {MatDialog} from "@angular/material/dialog";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {Router} from "@angular/router";
@@ -24,14 +20,12 @@ import {Router} from "@angular/router";
   styleUrl: './templates.component.scss'
 })
 export class TemplatesComponent implements AfterViewInit {
-  private router = inject(Router)
-  private templateService = inject(TemplatesService);
-
   displayedColumns: string[] = ['template_name', 'actionbuttons'];
   dataSource = new MatTableDataSource<Template>();
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  private router = inject(Router)
+  private templateService = inject(TemplatesService);
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

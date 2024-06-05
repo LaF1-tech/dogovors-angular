@@ -1,4 +1,4 @@
-import {HttpErrorResponse, HttpInterceptorFn} from '@angular/common/http'
+import {HttpInterceptorFn} from '@angular/common/http'
 import {catchError, throwError} from "rxjs"
 import {inject} from "@angular/core";
 import {MatSnackBar} from "@angular/material/snack-bar";

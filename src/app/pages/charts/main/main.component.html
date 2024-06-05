@@ -1,6 +1,9 @@
 <div class="main-container">
-  <button mat-flat-button (click)="this.toPeriodChart()">Количество оформленных договоров на период времени</button>
-  <button mat-flat-button (click)="this.toEducationalChart()">Количество оформленных договоров по учреждению образования</button>
-  <button mat-flat-button (click)="this.toSpecializationsChart()">Количество оформленных договоров по специальности</button>
-  <button mat-flat-button (click)="this.toTemplatesChart()">Перечень заключенных договоров</button>
+  <button (click)="this.toPeriodChart()" mat-flat-button>Количество оформленных договоров на период времени</button>
+  <button (click)="this.toEducationalChart()" mat-flat-button>Количество оформленных договоров по учреждению
+    образования
+  </button>
+  <button (click)="this.toSpecializationsChart()" mat-flat-button>Количество оформленных договоров по специальности
+  </button>
+  <button (click)="this.toTemplatesChart()" mat-flat-button>Перечень заключенных договоров</button>
 </div>

@@ -25,14 +25,12 @@ import {Validators} from "@angular/forms";
   styleUrl: './eduestablishments.component.scss'
 })
 export class EduestablishmentsComponent implements AfterViewInit {
-  private educationalEstablishmentService = inject(EducationEstablishmentsService);
-  private dialog = inject(MatDialog)
-
   displayedColumns: string[] = ['educational_establishment_name', 'educational_establishment_contact_phone', 'actionbuttons'];
   dataSource = new MatTableDataSource<EducationalEstablishment>();
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  private educationalEstablishmentService = inject(EducationEstablishmentsService);
+  private dialog = inject(MatDialog)
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -57,31 +55,6 @@ export class EduestablishmentsComponent implements AfterViewInit {
       .subscribe(() => this.fetchData())
   }
 
-  private openDialog(value?: any): Observable<any> {
-    return this.dialog.open(FormConfigDialogComponent, {
-      data: {
-        controls: <FormConfigControls>{
-          educational_establishment_id:{
-            type: Controls.select,
-            label: "",
-          },
-          educational_establishment_name: {
-            type: Controls.textInput,
-            label: "Имя учреждения образования",
-            validators: [Validators.required]
-          },
-          educational_establishment_contact_phone: {
-            type: Controls.textInput,
-            label: "Контактный номер телефона",
-            validators: [Validators.required]
-          }
-        },
-        initial: value
-      },
-      disableClose: true,
-    }).afterClosed()
-  }
-
   add() {
     this.openDialog()
       .pipe(filter(v => !!v))
@@ -100,5 +73,30 @@ export class EduestablishmentsComponent implements AfterViewInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  private openDialog(value?: any): Observable<any> {
+    return this.dialog.open(FormConfigDialogComponent, {
+      data: {
+        controls: <FormConfigControls>{
+          educational_establishment_id: {
+            type: Controls.select,
+            label: "",
+          },
+          educational_establishment_name: {
+            type: Controls.textInput,
+            label: "Имя учреждения образования",
+            validators: [Validators.required]
+          },
+          educational_establishment_contact_phone: {
+            type: Controls.textInput,
+            label: "Контактный номер телефона",
+            validators: [Validators.required]
+          }
+        },
+        initial: value
+      },
+      disableClose: true,
+    }).afterClosed()
   }
 }

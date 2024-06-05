@@ -20,12 +20,11 @@ import {MatInput} from "@angular/material/input";
   styleUrl: './contracts.component.scss'
 })
 export class ContractsComponent implements AfterViewInit {
-  private contractsService = inject(ContractsService);
   displayedColumns: string[] = ['student_name', 'student_last_name', 'employee_first_name', 'employee_last_name', 'template_name', 'execution_date', 'expiration_date', 'actionbuttons'];
   dataSource = new MatTableDataSource<Contract>();
-
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  private contractsService = inject(ContractsService);
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

@@ -17,15 +17,34 @@ import {Router} from "@angular/router";
   styleUrl: './template-chart.component.scss'
 })
 export class TemplateChartComponent implements OnInit {
-  constructor() {}
-
-  private chartsService = inject(ChartsService);
-  private router = inject(Router)
-
   public SystemName: string = "Договора"
   public lineChartData: Array<number> = []
   public lineChartLabels: Array<string> = [];
   public labelMFL: Array<any> = [];
+  public lineChartOptions: any = {
+    responsive: true,
+    scales: {
+      x: {},
+      y: {
+        min: 0,
+      },
+    },
+    plugins: {
+      legend: {
+        position: "top",
+      },
+      title: {
+        display: true,
+        text: "Перечень заключенных договоров",
+      },
+      maintainAspectRatio: false
+    },
+  };
+  private chartsService = inject(ChartsService);
+  private router = inject(Router)
+
+  constructor() {
+  }
 
   getChartData() {
     this.chartsService.getTemplatesChartData().pipe(take(1)).subscribe((data: TemplatesChart[]) => {
@@ -47,26 +66,6 @@ export class TemplateChartComponent implements OnInit {
       }
     ];
   }
-
-  public lineChartOptions: any = {
-    responsive: true,
-    scales: {
-      x: {},
-      y: {
-        min: 0,
-      },
-    },
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Перечень заключенных договоров",
-      },
-      maintainAspectRatio: false
-    },
-  };
 
   backToAdmin() {
     this.router.navigate(['/admin/charts'])

@@ -1,40 +1,40 @@
 <div class="main-container">
   <mat-form-field>
     <mat-label>Поиск</mat-label>
-    <input #input matInput (keyup)="applyFilter(input.value)" placeholder="Поиск">
+    <input #input (keyup)="applyFilter(input.value)" matInput placeholder="Поиск">
   </mat-form-field>
-  <button mat-button (click)="add()">Добавить</button>
+  <button (click)="add()" mat-button>Добавить</button>
 
-  <table mat-table matSort [dataSource]="dataSource">
+  <table [dataSource]="dataSource" mat-table matSort>
 
     <!-- Position Column -->
     <ng-container matColumnDef="educational_establishment_name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Наименование учреждения образования</th>
-      <td mat-cell *matCellDef="let element"> {{ element.educational_establishment_name }}</td>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Наименование учреждения образования</th>
+      <td *matCellDef="let element" mat-cell> {{ element.educational_establishment_name }}</td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="educational_establishment_contact_phone">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Контактный телефон</th>
-      <td mat-cell *matCellDef="let element"> {{ element.educational_establishment_contact_phone }}</td>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Контактный телефон</th>
+      <td *matCellDef="let element" mat-cell> {{ element.educational_establishment_contact_phone }}</td>
     </ng-container>
 
     <ng-container matColumnDef="actionbuttons">
-      <th mat-header-cell *matHeaderCellDef> Действия</th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-flat-button (click)="edit(element)">Редактировать</button>
-        <button mat-flat-button (click)="deleteEducationalEstablishment(element.educational_establishment_id)">Удалить
+      <th *matHeaderCellDef mat-header-cell> Действия</th>
+      <td *matCellDef="let element" mat-cell>
+        <button (click)="edit(element)" mat-flat-button>Редактировать</button>
+        <button (click)="deleteEducationalEstablishment(element.educational_establishment_id)" mat-flat-button>Удалить
         </button>
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
   </table>
 
   <mat-paginator [pageSizeOptions]="[5, 10]"
+                 aria-label="Select page of periodic elements"
                  showFirstLastButtons
-                 style="background-color: var(--secondary-background-color)"
-                 aria-label="Select page of periodic elements">
+                 style="background-color: var(--secondary-background-color)">
   </mat-paginator>
 </div>

@@ -1,73 +1,73 @@
 <div class="main-container">
   <mat-form-field>
     <mat-label>Поиск</mat-label>
-    <input #input matInput (keyup)="applyFilter(input.value)" placeholder="Поиск">
+    <input #input (keyup)="applyFilter(input.value)" matInput placeholder="Поиск">
   </mat-form-field>
-  <table mat-table matSort [dataSource]="dataSource">
+  <table [dataSource]="dataSource" mat-table matSort>
 
     <!-- Position Column -->
     <ng-container matColumnDef="educational_establishment_name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Название учреждения образования</th>
-      <td mat-cell *matCellDef="let element"> {{ element.educational_establishment_name }}</td>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Название учреждения образования</th>
+      <td *matCellDef="let element" mat-cell> {{ element.educational_establishment_name }}</td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="specialization_name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Специальность</th>
-      <td mat-cell *matCellDef="let element"> {{ element.specialization_name }}</td>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Специальность</th>
+      <td *matCellDef="let element" mat-cell> {{ element.specialization_name }}</td>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="last_name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Фамилия</th>
-      <td mat-cell *matCellDef="let element"> {{ element.last_name }}</td>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Фамилия</th>
+      <td *matCellDef="let element" mat-cell> {{ element.last_name }}</td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Имя</th>
-      <td mat-cell *matCellDef="let element"> {{ element.name }}</td>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Имя</th>
+      <td *matCellDef="let element" mat-cell> {{ element.name }}</td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="middle_name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Отчество</th>
-      <td mat-cell *matCellDef="let element"> {{ element.middle_name }}</td>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Отчество</th>
+      <td *matCellDef="let element" mat-cell> {{ element.middle_name }}</td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="types">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Шаблон</th>
-      <td mat-cell *matCellDef="let element"> {{ element.types|json }}</td>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Шаблон</th>
+      <td *matCellDef="let element" mat-cell> {{ element.types|json }}</td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="phone_number">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Номер телефона</th>
-      <td mat-cell *matCellDef="let element"> {{ element.phone_number }}</td>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Номер телефона</th>
+      <td *matCellDef="let element" mat-cell> {{ element.phone_number }}</td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="application_status">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Статус заявки</th>
-      <td mat-cell *matCellDef="let element"> {{ element.application_status }}</td>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Статус заявки</th>
+      <td *matCellDef="let element" mat-cell> {{ element.application_status }}</td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="execution_date">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата исполнения</th>
-      <td mat-cell *matCellDef="let element"> {{ element.execution_date | date }}</td>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Дата исполнения</th>
+      <td *matCellDef="let element" mat-cell> {{ element.execution_date | date }}</td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="expiration_date">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата окончания</th>
-      <td mat-cell *matCellDef="let element"> {{ element.expiration_date | date }}</td>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Дата окончания</th>
+      <td *matCellDef="let element" mat-cell> {{ element.expiration_date | date }}</td>
     </ng-container>
 
     <ng-container matColumnDef="actionbuttons">
-      <th mat-header-cell *matHeaderCellDef> Действие</th>
-      <td mat-cell *matCellDef="let element">
+      <th *matHeaderCellDef mat-header-cell> Действие</th>
+      <td *matCellDef="let element" mat-cell>
         @if (element.application_status === 'В процессе') {
           <button mat-flat-button (click)="makeApproved(element.id)">Одобрить</button>
           <button mat-flat-button (click)="makeRejected(element.id)">Отклонить</button>
@@ -75,13 +75,13 @@
       </td>
     </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
   </table>
 
   <mat-paginator [pageSizeOptions]="[5, 10]"
+                 aria-label="Select page of periodic elements"
                  showFirstLastButtons
-                 style="background-color: var(--secondary-background-color)"
-                 aria-label="Select page of periodic elements">
+                 style="background-color: var(--secondary-background-color)">
   </mat-paginator>
 </div>

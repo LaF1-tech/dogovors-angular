@@ -3,8 +3,11 @@ import {FooterComponent} from "../../components/footer/footer.component";
 import {
   ControlDescriptor,
   FormBuilderComponent,
-  FormConfig, FormConfigControl, FormConfigControls,
-  sendHttpRequestAndSubscribe, SubmitEvent
+  FormConfig,
+  FormConfigControl,
+  FormConfigControls,
+  sendHttpRequestAndSubscribe,
+  SubmitEvent
 } from "@likdan/form-builder-core";
 import {HeaderComponent} from "../../components/header/header.component";
 import {Buttons, Controls} from "@likdan/form-builder-material";
@@ -32,8 +35,6 @@ export class MainPageComponent {
   private educationalEstablishmentsService = inject(EducationEstablishmentsService)
   private specializationsService = inject(SpecializationsService)
   private templatesService = inject(TemplatesService)
-  private dialog = inject(MatDialog)
-
   form = <FormConfig<any>>{
     controls: {
       educational_establishment_id: {
@@ -101,6 +102,7 @@ export class MainPageComponent {
       }, this.loadTemplatesAdditionalData.bind(this))
     }
   }
+  private dialog = inject(MatDialog)
 
   private loadTemplatesAdditionalData(event: SubmitEvent<any>): Observable<any> {
     const types$: Observable<Template[]> = zip(event.value.types.map((i: number) => this.loadTemplateAdditionalDataById(i)))

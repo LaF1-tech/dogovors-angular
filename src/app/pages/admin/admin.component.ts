@@ -1,6 +1,6 @@
 import {NestedTreeControl} from '@angular/cdk/tree';
 import {Component, inject, OnInit} from '@angular/core';
-import {MatTreeNestedDataSource, MatTreeModule} from '@angular/material/tree';
+import {MatTreeModule, MatTreeNestedDataSource} from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {Router, RouterLink, RouterOutlet} from "@angular/router";
@@ -11,6 +11,7 @@ import {FormConfigControls} from "@likdan/form-builder-core";
 import {Controls} from "@likdan/form-builder-material";
 import {MatDialog} from "@angular/material/dialog";
 import {User} from "../../models/user";
+import {Validators} from "@angular/forms";
 
 interface FoodNode {
   name: string;
@@ -31,6 +32,9 @@ interface FoodNode {
   styleUrl: './admin.component.scss'
 })
 export class AdminComponent implements OnInit {
+  treeControl = new NestedTreeControl<FoodNode>(node => node.children);
+  dataSource = new MatTreeNestedDataSource<FoodNode>();
+  public User: any
   TREE_DATA: FoodNode[] = [
     {
       name: 'Заявки',
@@ -67,10 +71,6 @@ export class AdminComponent implements OnInit {
       },
     }
   ];
-
-  treeControl = new NestedTreeControl<FoodNode>(node => node.children);
-  dataSource = new MatTreeNestedDataSource<FoodNode>();
-
   private userService = inject(UserService)
   private dialog = inject(MatDialog)
   private router = inject(Router)
@@ -78,8 +78,6 @@ export class AdminComponent implements OnInit {
   constructor() {
     this.dataSource.data = this.TREE_DATA;
   }
-
-  public User: any
 
   getUser() {
     return this.userService.getUser().pipe(take(1)).subscribe((user: User) => {
@@ -97,6 +95,16 @@ export class AdminComponent implements OnInit {
     this.getUser().add(() => this.checkUser())
   }
 
+  open(value: any) {
+    this.openDialog(value)
+      .pipe(filter(v => !!v))
+      .pipe(switchMap(v => this.userService.editUserPassword(v.value.password, value.UserID)))
+      .pipe(take(1))
+      .subscribe(() => alert('Пароль изменен'))
+  }
+
+  hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
+
   private openDialog(value?: any): Observable<any> {
     return this.dialog.open(FormConfigDialogComponent, {
       data: {
@@ -107,20 +115,11 @@ export class AdminComponent implements OnInit {
               type: "password"
             },
             label: "Пароль",
+            validators: [Validators.required, Validators.minLength(4)]
           },
         },
       },
       disableClose: true,
     }).afterClosed()
   }
-
-  open(value: any) {
-    this.openDialog(value)
-      .pipe(filter(v => !!v))
-      .pipe(switchMap(v => this.userService.editUserPassword(v.value.password, value.UserID)))
-      .pipe(take(1))
-      .subscribe(() => alert('Пароль изменен'))
-  }
-
-  hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;
 }
