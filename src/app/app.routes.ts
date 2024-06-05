@@ -54,6 +54,14 @@ export const routes: Routes = [
     loadComponent: () => import("src/app/pages/charts/template-chart/template-chart.component").then(c => c.TemplateChartComponent)
   },
   {
+    path: "create-template",
+    loadComponent: () => import("src/app/pages/create-template/create-template.component").then(c => c.CreateTemplateComponent)
+  },
+  {
+    path: "edit-template/:id",
+    loadComponent: () => import("src/app/pages/edit-template/edit-template.component").then(c => c.EditTemplateComponent)
+  },
+  {
     path: "**",
     redirectTo: "apply"
   }

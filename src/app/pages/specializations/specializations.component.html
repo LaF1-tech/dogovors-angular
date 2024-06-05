@@ -1,5 +1,9 @@
 <div class="main-container">
 
+  <mat-form-field>
+    <mat-label>Поиск</mat-label>
+    <input #input matInput (keyup)="applyFilter(input.value)" placeholder="Поиск">
+  </mat-form-field>
   <button mat-button (click)="add()">Добавить</button>
 
   <table mat-table matSort [dataSource]="dataSource">

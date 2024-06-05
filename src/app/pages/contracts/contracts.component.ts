@@ -6,12 +6,15 @@ import Contract from "../../models/contract";
 import {ContractsService} from "../../services/contracts.service";
 import {take} from "rxjs";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
+import {DatePipe} from "@angular/common";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
 
 @Component({
   selector: 'app-contracts',
   standalone: true,
   imports: [
-    MatTableModule, MatPaginatorModule, MatButton, MatSort, MatSortHeader
+    MatTableModule, MatPaginatorModule, MatButton, MatSort, MatSortHeader, DatePipe, MatFormField, MatInput, MatLabel
   ],
   templateUrl: './contracts.component.html',
   styleUrl: './contracts.component.scss'
@@ -44,5 +47,9 @@ export class ContractsComponent implements AfterViewInit {
       const url = window.URL.createObjectURL(blob);
       window.open(url);
     })
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

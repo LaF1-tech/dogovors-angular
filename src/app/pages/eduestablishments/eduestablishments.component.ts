@@ -10,13 +10,16 @@ import {FormConfigControls} from "@likdan/form-builder-core";
 import {Controls} from "@likdan/form-builder-material";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {Validators} from "@angular/forms";
 
 
 @Component({
   selector: 'app-eduestablishments',
   standalone: true,
   imports: [
-    MatTableModule, MatPaginatorModule, MatButton, MatSort, MatSortHeader
+    MatTableModule, MatPaginatorModule, MatButton, MatSort, MatSortHeader, MatFormField, MatInput, MatLabel
   ],
   templateUrl: './eduestablishments.component.html',
   styleUrl: './eduestablishments.component.scss'
@@ -58,21 +61,28 @@ export class EduestablishmentsComponent implements AfterViewInit {
     return this.dialog.open(FormConfigDialogComponent, {
       data: {
         controls: <FormConfigControls>{
+          educational_establishment_id:{
+            type: Controls.select,
+            label: "",
+          },
           educational_establishment_name: {
             type: Controls.textInput,
             label: "Имя учреждения образования",
+            validators: [Validators.required]
           },
           educational_establishment_contact_phone: {
             type: Controls.textInput,
             label: "Контактный номер телефона",
+            validators: [Validators.required]
           }
         },
+        initial: value
       },
       disableClose: true,
     }).afterClosed()
   }
 
-  add(){
+  add() {
     this.openDialog()
       .pipe(filter(v => !!v))
       .pipe(switchMap(v => this.educationalEstablishmentService.addEduEstab(v.value)))
@@ -80,11 +90,15 @@ export class EduestablishmentsComponent implements AfterViewInit {
       .subscribe(() => this.fetchData())
   }
 
-  edit(value: any){
+  edit(value: any) {
     this.openDialog(value)
       .pipe(filter(v => !!v))
       .pipe(switchMap(v => this.educationalEstablishmentService.editEduEstab(v.value, value.educational_establishment_id)))
       .pipe(take(1))
       .subscribe(() => this.fetchData())
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

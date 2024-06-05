@@ -1,4 +1,8 @@
 <div class="main-container">
+  <mat-form-field>
+    <mat-label>Поиск</mat-label>
+    <input #input matInput (keyup)="applyFilter(input.value)" placeholder="Поиск">
+  </mat-form-field>
   <table mat-table matSort [dataSource]="dataSource">
 
     <!-- Position Column -->
@@ -34,13 +38,13 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="execution_date">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата исполнения</th>
-      <td mat-cell *matCellDef="let element"> {{ element.execution_date }}</td>
+      <td mat-cell *matCellDef="let element"> {{ element.execution_date | date }}</td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="expiration_date">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Дата окончания действия</th>
-      <td mat-cell *matCellDef="let element"> {{ element.expiration_date }}</td>
+      <td mat-cell *matCellDef="let element"> {{ element.expiration_date | date }}</td>
     </ng-container>
 
     <ng-container matColumnDef="actionbuttons">

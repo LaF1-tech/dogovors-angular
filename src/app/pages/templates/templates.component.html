@@ -1,4 +1,8 @@
 <div class="main-container">
+  <mat-form-field>
+    <mat-label>Поиск</mat-label>
+    <input #input matInput (keyup)="applyFilter(input.value)" placeholder="Поиск">
+  </mat-form-field>
   <button mat-button (click)="this.add()">Добавить</button>
 
   <table mat-table matSort [dataSource]="dataSource">
@@ -12,7 +16,7 @@
     <ng-container matColumnDef="actionbuttons">
       <th mat-header-cell *matHeaderCellDef> Действия</th>
       <td mat-cell *matCellDef="let element">
-        <button mat-flat-button (click)="this.edit(element)">Редактировать</button>
+        <button mat-flat-button (click)="this.edit(element.template_id)">Редактировать</button>
         <button mat-flat-button (click)="deleteTemplate(element.template_id)">Удалить</button>
       </td>
     </ng-container>

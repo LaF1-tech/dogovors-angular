@@ -10,18 +10,21 @@ import {FormConfigDialogComponent} from "../../dialog/form-config-dialog/form-co
 import {FormConfigControls} from "@likdan/form-builder-core";
 import {Controls} from "@likdan/form-builder-material";
 import {MatDialog} from "@angular/material/dialog";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-templates',
   standalone: true,
   imports: [
-    MatTableModule, MatPaginatorModule, MatButton, MatSort, MatSortHeader
+    MatTableModule, MatPaginatorModule, MatButton, MatSort, MatSortHeader, MatFormField, MatInput, MatLabel
   ],
   templateUrl: './templates.component.html',
   styleUrl: './templates.component.scss'
 })
 export class TemplatesComponent implements AfterViewInit {
-  private dialog = inject(MatDialog)
+  private router = inject(Router)
   private templateService = inject(TemplatesService);
 
   displayedColumns: string[] = ['template_name', 'actionbuttons'];
@@ -44,42 +47,12 @@ export class TemplatesComponent implements AfterViewInit {
       });
   }
 
-  private openDialog(value?: any): Observable<any> {
-    return this.dialog.open(FormConfigDialogComponent, {
-      data: {
-        controls: <FormConfigControls>{
-          template_name: {
-            type: Controls.textInput,
-            label: "Имя шаблона",
-          },
-          template_content: {
-            type: Controls.textInput,
-            label: "Содержание шаблона",
-          },
-          necessary_data: {
-            type: Controls.textInput,
-            label: "Необходимые данные (формат 'Название':'поле(integer)')",
-          },
-        },
-      },
-      disableClose: true,
-    }).afterClosed()
+  add() {
+    this.router.navigate(['/create-template'])
   }
 
-  add(){
-    this.openDialog()
-      .pipe(filter(v => !!v))
-      .pipe(switchMap(v => this.templateService.addTemplate(v.value)))
-      .pipe(take(1))
-      .subscribe(() => alert('Шаблон добавлен'))
-  }
-
-  edit(value: any) {
-    this.openDialog(value)
-      .pipe(filter(v => !!v))
-      .pipe(switchMap(v => this.templateService.editTemplate(v.value, value.template_id)))
-      .pipe(take(1))
-      .subscribe(() => alert('Шаблон изменен'))
+  edit(id: any) {
+    this.router.navigate([`/edit-template/${id}`])
   }
 
   deleteTemplate(id: number) {
@@ -90,5 +63,9 @@ export class TemplatesComponent implements AfterViewInit {
     this.templateService.deleteTemplate(id)
       .pipe(take(1))
       .subscribe(() => this.fetchData())
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }

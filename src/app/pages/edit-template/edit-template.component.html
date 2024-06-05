@@ -1,0 +1,47 @@
+<div class="container">
+  <form [formGroup]="templateForm">
+    <mat-form-field class="example-full-width">
+      <mat-label>Имя шаблона</mat-label>
+      <input matInput formControlName="template_name" required>
+    </mat-form-field>
+
+    <div class="template-content-section">
+      <mat-form-field class="example-full-width">
+        <mat-label>Внутренности шаблона</mat-label>
+        <textarea matInput [defaultValue]="defval" formControlName="template_content" required></textarea>
+      </mat-form-field>
+      <div class="template-buttons">
+        <button mat-button (click)="insertTemplateVariable('{{ .student_last_name }} {{ .student_name }} {{ .student_middle_name }}')">Добавить ФИО студента</button>
+        <button mat-button (click)="insertTemplateVariable('{{ .execution_date }}')">Добавить Дату исполнения</button>
+        <button mat-button (click)="insertTemplateVariable('{{ .expiration_date }}')">Добавить Дату окончания действия</button>
+        <button mat-button (click)="insertTemplateVariable('{{ .specialization_name }}')">Добавить специальность</button>
+        <button mat-button (click)="insertTemplateVariable('{{ .educational_establishment_name }}')">Добавить место обучения</button>
+        <button mat-button (click)="insertTemplateVariable(defval)">Добавить шаблон HTML
+        </button>
+      </div>
+    </div>
+
+    <div class="necessary_data" formArrayName="necessary_data">
+      <h3>Необходимые данные</h3>
+      <div *ngFor="let item of necessaryData.controls; let i=index" [formGroupName]="i">
+        <mat-form-field class="example-full-width">
+          <mat-label>Имя поля</mat-label>
+          <input matInput formControlName="key" required>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Тип данных</mat-label>
+          <mat-select formControlName="value" required>
+            <mat-option *ngFor="let val of foods" [value]="val.value">{{ val.viewValue }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-button color="warn" (click)="removeNecessaryData(i)">Удалить</button>
+      </div>
+      <button mat-button color="primary" (click)="addNecessaryData()">Добавить поле</button>
+    </div>
+
+    <div class="buttons">
+      <button mat-raised-button color="warn" routerLink="/admin/templates">Отмена</button>
+      <button mat-raised-button color="primary" (click)="onSubmit()">Обновить шаблон</button>
+    </div>
+  </form>
+</div>

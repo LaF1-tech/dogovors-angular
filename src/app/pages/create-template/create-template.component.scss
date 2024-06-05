@@ -1,0 +1,38 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+
+.example-full-width {
+  width: 100%;
+}
+
+.buttons{
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 12px;
+}
+
+.necessary_data{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.template-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.template-content-section {
+  position: relative;
+}
+

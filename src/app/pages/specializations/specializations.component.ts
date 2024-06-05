@@ -5,17 +5,20 @@ import {MatButton} from "@angular/material/button";
 import {Specializations} from "../../models/specializations";
 import {SpecializationsService} from "../../services/specializations.service";
 import {filter, Observable, switchMap, take} from "rxjs";
-import {FormConfigControl, FormConfigControls} from "@likdan/form-builder-core";
+import {FormConfigControls} from "@likdan/form-builder-core";
 import {FormConfigDialogComponent} from "../../dialog/form-config-dialog/form-config-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Controls} from "@likdan/form-builder-material";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
+import {MatFormField, MatLabel} from "@angular/material/form-field";
+import {MatInput} from "@angular/material/input";
+import {Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-specializations',
   standalone: true,
   imports: [
-    MatTableModule, MatPaginatorModule, MatButton, MatSort, MatSortHeader
+    MatTableModule, MatPaginatorModule, MatButton, MatSort, MatSortHeader, MatFormField, MatInput, MatLabel
   ],
   templateUrl: './specializations.component.html',
   styleUrl: './specializations.component.scss'
@@ -58,11 +61,17 @@ export class SpecializationsComponent implements AfterViewInit {
     return this.dialog.open(FormConfigDialogComponent, {
       data: {
         controls: <FormConfigControls>{
+          specialization_id:{
+            label: "",
+            type: Controls.select,
+          },
           specialization_name: {
             type: Controls.textInput,
             label: "Имя специальности",
+            validators: [Validators.required],
           }
         },
+        initial: value
       },
       disableClose: true,
     }).afterClosed()
@@ -84,6 +93,10 @@ export class SpecializationsComponent implements AfterViewInit {
       .pipe(take(1))
       .subscribe(() => this.fetchData())
 
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

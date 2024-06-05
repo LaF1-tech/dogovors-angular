@@ -35,7 +35,7 @@ export class TemplatesService {
   }
 
   editTemplate(template: any, id: number) {
-    return this.http.patch("/api/v1/templates", {
+    return this.http.patch(`/api/v1/templates/`, {
       ...template,
       template_id: id,
     })

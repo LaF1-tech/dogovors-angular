@@ -4,14 +4,18 @@ import {MatPaginator, MatPaginatorModule} from "@angular/material/paginator";
 import {MatButton} from "@angular/material/button";
 import {Application} from "../../models/application";
 import {ApplicationsService} from "../../services/applications.service";
-import {Observable, take} from "rxjs";
+import {take} from "rxjs";
 import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
-import {JsonPipe} from "@angular/common";
+import {DatePipe, JsonPipe} from "@angular/common";
+import {MatInput} from "@angular/material/input";
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {FormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-applications',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatButton, MatSortHeader, MatSort, JsonPipe],
+  imports: [MatTableModule, MatPaginatorModule, MatButton, MatSortHeader, MatSort, JsonPipe, DatePipe, MatInput, FormsModule, MatFormFieldModule, MatInputModule],
   templateUrl: './applications.component.html',
   styleUrl: './applications.component.scss'
 })
@@ -22,6 +26,7 @@ export class ApplicationsComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -54,5 +59,7 @@ export class ApplicationsComponent implements AfterViewInit {
     this.fetchData()
   }
 
-  protected readonly JsonPipe = JsonPipe;
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

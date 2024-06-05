@@ -3,7 +3,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {MatTreeNestedDataSource, MatTreeModule} from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
-import {RouterLink, RouterOutlet} from "@angular/router";
+import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {filter, Observable, switchMap, take} from "rxjs";
 import {FormConfigDialogComponent} from "../../dialog/form-config-dialog/form-config-dialog.component";
@@ -73,6 +73,7 @@ export class AdminComponent implements OnInit {
 
   private userService = inject(UserService)
   private dialog = inject(MatDialog)
+  private router = inject(Router)
 
   constructor() {
     this.dataSource.data = this.TREE_DATA;
@@ -81,13 +82,19 @@ export class AdminComponent implements OnInit {
   public User: any
 
   getUser() {
-    this.userService.getUser().pipe(take(1)).subscribe((user: User) => {
+    return this.userService.getUser().pipe(take(1)).subscribe((user: User) => {
       this.User = user
     })
   }
 
+  checkUser() {
+    if (!this.User) {
+      this.router.navigate(['login'])
+    }
+  }
+
   ngOnInit() {
-    this.getUser()
+    this.getUser().add(() => this.checkUser())
   }
 
   private openDialog(value?: any): Observable<any> {
