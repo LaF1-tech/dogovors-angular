@@ -29,4 +29,15 @@ export class TemplatesService {
   deleteTemplate(id: number) {
     return this.http.delete(`/api/v1/templates/${id}`)
   }
+
+  addTemplate(template: any) {
+    return this.http.post("/api/v1/templates", template)
+  }
+
+  editTemplate(template: any, id: number) {
+    return this.http.patch("/api/v1/templates", {
+      ...template,
+      template_id: id,
+    })
+  }
 }

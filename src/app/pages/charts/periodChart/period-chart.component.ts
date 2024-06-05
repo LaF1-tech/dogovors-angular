@@ -4,6 +4,7 @@ import PeriodChart from "../../../models/periodChart";
 import {MatButton} from "@angular/material/button";
 import {take} from "rxjs";
 import {ChartsService} from "../../../services/charts.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-charts',
@@ -19,8 +20,9 @@ export class PeriodChartComponent implements OnInit {
   constructor() {}
 
   private chartsService = inject(ChartsService);
-  public SystemName: string = "Договора"
+  private router = inject(Router)
 
+  public SystemName: string = "Договора"
   public lineChartData: Array<number> = []
   public lineChartLabels: Array<string> = [];
   public labelMFL: Array<any> = [];
@@ -66,4 +68,7 @@ export class PeriodChartComponent implements OnInit {
     },
   };
 
+  backToAdmin(){
+    this.router.navigate(['/admin/charts'])
+  }
 }

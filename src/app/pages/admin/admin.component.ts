@@ -1,52 +1,23 @@
 import {NestedTreeControl} from '@angular/cdk/tree';
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {MatTreeNestedDataSource, MatTreeModule} from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {RouterLink, RouterOutlet} from "@angular/router";
 import {UserService} from "../../services/user.service";
-import {filter, map, Observable, switchMap, take} from "rxjs";
+import {filter, Observable, switchMap, take} from "rxjs";
 import {FormConfigDialogComponent} from "../../dialog/form-config-dialog/form-config-dialog.component";
 import {FormConfigControls} from "@likdan/form-builder-core";
 import {Controls} from "@likdan/form-builder-material";
 import {MatDialog} from "@angular/material/dialog";
+import {User} from "../../models/user";
 
 interface FoodNode {
   name: string;
   url?: string;
+  action?: (value?: any) => void;
   children?: FoodNode[];
 }
-
-const TREE_DATA: FoodNode[] = [
-  {
-    name: 'Заявки',
-    url: '/admin/applications',
-  },
-  {
-    name: 'Договора',
-    url: '/admin/contracts'
-  },
-  {
-    name: 'Учреждения образования',
-    url: '/admin/educationalestablishments'
-  },
-  {
-    name: 'Специальности',
-    url: '/admin/specializations'
-  },
-  {
-    name: 'Шаблоны',
-    url: '/admin/templates'
-  },
-  {
-    name: 'Создать пользователя',
-    url: '/admin/create'
-  },
-  {
-    name: 'Сменить пароль',
-    url: '/periodchart'
-  },
-];
 
 @Component({
   selector: 'app-admin',
@@ -59,7 +30,44 @@ const TREE_DATA: FoodNode[] = [
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss'
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
+  TREE_DATA: FoodNode[] = [
+    {
+      name: 'Заявки',
+      url: '/admin/applications',
+    },
+    {
+      name: 'Договора',
+      url: '/admin/contracts'
+    },
+    {
+      name: 'Учреждения образования',
+      url: '/admin/educationalestablishments'
+    },
+    {
+      name: 'Специальности',
+      url: '/admin/specializations'
+    },
+    {
+      name: 'Шаблоны',
+      url: '/admin/templates'
+    },
+    {
+      name: 'Создать пользователя',
+      url: '/admin/create'
+    },
+    {
+      name: 'Отчеты',
+      url: '/admin/charts'
+    },
+    {
+      name: 'Сменить пароль',
+      action: () => {
+        this.open(this.User)
+      },
+    }
+  ];
+
   treeControl = new NestedTreeControl<FoodNode>(node => node.children);
   dataSource = new MatTreeNestedDataSource<FoodNode>();
 
@@ -67,7 +75,19 @@ export class AdminComponent {
   private dialog = inject(MatDialog)
 
   constructor() {
-    this.dataSource.data = TREE_DATA;
+    this.dataSource.data = this.TREE_DATA;
+  }
+
+  public User: any
+
+  getUser() {
+    this.userService.getUser().pipe(take(1)).subscribe((user: User) => {
+      this.User = user
+    })
+  }
+
+  ngOnInit() {
+    this.getUser()
   }
 
   private openDialog(value?: any): Observable<any> {
@@ -85,6 +105,14 @@ export class AdminComponent {
       },
       disableClose: true,
     }).afterClosed()
+  }
+
+  open(value: any) {
+    this.openDialog(value)
+      .pipe(filter(v => !!v))
+      .pipe(switchMap(v => this.userService.editUserPassword(v.value.password, value.UserID)))
+      .pipe(take(1))
+      .subscribe(() => alert('Пароль изменен'))
   }
 
   hasChild = (_: number, node: FoodNode) => !!node.children && node.children.length > 0;

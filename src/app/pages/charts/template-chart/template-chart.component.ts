@@ -3,23 +3,26 @@ import {BaseChartDirective} from "ng2-charts";
 import {ChartsService} from "../../../services/charts.service";
 import {take} from "rxjs";
 import TemplatesChart from "../../../models/templatesChart";
+import {MatButton} from "@angular/material/button";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-template-chart',
   standalone: true,
   imports: [
-    BaseChartDirective
+    BaseChartDirective,
+    MatButton
   ],
   templateUrl: './template-chart.component.html',
   styleUrl: './template-chart.component.scss'
 })
 export class TemplateChartComponent implements OnInit {
-  constructor() {
-  }
+  constructor() {}
 
   private chartsService = inject(ChartsService);
-  public SystemName: string = "Договора"
+  private router = inject(Router)
 
+  public SystemName: string = "Договора"
   public lineChartData: Array<number> = []
   public lineChartLabels: Array<string> = [];
   public labelMFL: Array<any> = [];
@@ -64,5 +67,9 @@ export class TemplateChartComponent implements OnInit {
       maintainAspectRatio: false
     },
   };
+
+  backToAdmin() {
+    this.router.navigate(['/admin/charts'])
+  }
 
 }

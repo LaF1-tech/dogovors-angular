@@ -27,7 +27,10 @@ export const routes: Routes = [
       }, {
         path: "contracts",
         loadComponent: () => import("src/app/pages/contracts/contracts.component").then((m) => m.ContractsComponent)
-      },
+      }, {
+        path: "charts",
+        loadComponent: () => import("src/app/pages/charts/main/main.component").then((m) => m.MainComponent)
+      }
     ],
   },
   {

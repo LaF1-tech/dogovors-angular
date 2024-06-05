@@ -3,13 +3,16 @@ import {BaseChartDirective} from "ng2-charts";
 import {ChartsService} from "../../../services/charts.service";
 import {take} from "rxjs";
 import EducationalEstablishmentsChart from "../../../models/educationalEstablishmentsChart";
+import {MatButton} from "@angular/material/button";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-educationalestablishments-chart',
   standalone: true,
-    imports: [
-        BaseChartDirective
-    ],
+  imports: [
+    BaseChartDirective,
+    MatButton
+  ],
   templateUrl: './educationalestablishments-chart.component.html',
   styleUrl: './educationalestablishments-chart.component.scss'
 })
@@ -17,8 +20,9 @@ export class EducationalestablishmentsChartComponent implements OnInit{
   constructor() {}
 
   private chartsService = inject(ChartsService);
-  public SystemName: string = "Договора"
+  private router = inject(Router)
 
+  public SystemName: string = "Договора"
   public lineChartData: Array<number> = []
   public lineChartLabels: Array<string> = [];
   public labelMFL: Array<any> = [];
@@ -63,5 +67,9 @@ export class EducationalestablishmentsChartComponent implements OnInit{
       maintainAspectRatio: false
     },
   };
+
+  backToAdmin(){
+    this.router.navigate(['/admin/charts'])
+  }
 
 }

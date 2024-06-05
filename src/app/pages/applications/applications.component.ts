@@ -6,11 +6,12 @@ import {Application} from "../../models/application";
 import {ApplicationsService} from "../../services/applications.service";
 import {Observable, take} from "rxjs";
 import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
+import {JsonPipe} from "@angular/common";
 
 @Component({
   selector: 'app-applications',
   standalone: true,
-  imports: [MatTableModule, MatPaginatorModule, MatButton, MatSortHeader, MatSort],
+  imports: [MatTableModule, MatPaginatorModule, MatButton, MatSortHeader, MatSort, JsonPipe],
   templateUrl: './applications.component.html',
   styleUrl: './applications.component.scss'
 })
@@ -53,4 +54,5 @@ export class ApplicationsComponent implements AfterViewInit {
     this.fetchData()
   }
 
+  protected readonly JsonPipe = JsonPipe;
 }
