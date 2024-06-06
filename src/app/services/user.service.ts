@@ -14,11 +14,21 @@ export class UserService {
     return this.http.get<User>("/api/v1/users")
   }
 
-  createUser(user: User) {
+  createUser(user: any) {
     return this.http.post("/api/v1/users/signup", {
-      ...user,
+      username: user.username.toLowerCase(),
+      password: user.password,
+      first_name: user.first_name,
+      last_name: user.last_name,
       permissions: ["Admin"],
 
+    })
+  }
+
+  signIn(user: any){
+    return this.http.post("/api/v1/users/login", {
+      username: user.username.toLowerCase(),
+      password: user.password,
     })
   }
 

@@ -1,11 +1,12 @@
 import {Component, inject} from '@angular/core';
 import {HeaderComponent} from "../../components/header/header.component";
 import {FooterComponent} from "../../components/footer/footer.component";
-import {FormBuilderComponent, FormConfig, sendHttpRequestAndSubscribe} from "@likdan/form-builder-core";
+import {FormBuilderComponent, FormConfig} from "@likdan/form-builder-core";
 import {Buttons, Controls} from "@likdan/form-builder-material";
 import {Validators} from "@angular/forms";
-import {pipe, tap} from "rxjs";
+import {take} from "rxjs";
 import {Router} from '@angular/router';
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-login-page',
@@ -20,6 +21,7 @@ import {Router} from '@angular/router';
 })
 export class LoginPageComponent {
   private router = inject(Router)
+  private userService = inject(UserService)
 
   form = <FormConfig<any>>{
     controls: {
@@ -40,14 +42,12 @@ export class LoginPageComponent {
     submit: {
       button: Buttons.Submit.Flat,
       buttonText: "Войти",
-      onSubmit: sendHttpRequestAndSubscribe(
-        {
-          url: "/api/v1/users/login",
-          method: "POST",
-          sendOnInvalidValidation: false,
-          pipeline: pipe(tap(() => this.router.navigate(['/admin'])))
-        }
-      )
+      onSubmit: (user) => this.userService.signIn(user.value)
+        .pipe(take(1))
+        .subscribe(()=>{
+          alert('Успешно вошел')
+          this.router.navigate(['/admin'])
+      })
     }
   }
 }
