@@ -1,14 +1,24 @@
 .main-container {
-  display: flex;
   padding-left: 12px;
   padding-right: 12px;
   height: 82vh;
-  align-items: center;
   padding-bottom: 12px;
   color: var(--text-color);
-  justify-content: flex-start;
-  flex-direction: column;
   overflow-x: auto;
+
+  @media (min-width: 600px) {
+    .main-container {
+      flex-direction: row;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+  }
+
 }
 
 .mat-tree-container {
@@ -19,18 +29,16 @@
   max-width: 300px;
   align-content: center;
   margin-bottom: 12px;
+
+  @media (min-width: 600px) {
+    .mat-tree-container {
+      font-size: 0.7em;
+      text-align: left;
+      width: 50%;
+    }
+  }
 }
 
-@media (min-width: 600px) {
-  .main-container {
-    flex-direction: row;
-  }
-  .mat-tree-container {
-    font-size: 0.7em;
-    text-align: left;
-    width: 50%;
-  }
-}
 
 @media (min-width: 1024px) {
   .mat-tree-container {
