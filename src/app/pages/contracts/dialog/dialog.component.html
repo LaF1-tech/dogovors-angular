@@ -2,7 +2,7 @@
   <form (ngSubmit)="onSubmit()" [formGroup]="mainForm">
     <mat-form-field>
       <mat-label>Статус договора</mat-label>
-      <mat-select class="example-full-width" [formControlName]="'contract_status'">
+      <mat-select [formControlName]="'contract_status'" class="example-full-width">
         @for (status of contractStatuses; track status) {
           <mat-option [value]="status.value">{{ status.viewValue }}</mat-option>
         }
