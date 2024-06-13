@@ -119,7 +119,6 @@ export class AdminComponent implements OnInit {
           },
         },
       },
-      disableClose: true,
     }).afterClosed()
   }
 }

@@ -1,7 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable} from "rxjs";
-import {RawItem} from "@likdan/form-builder-material";
 import {Template} from "../models/templates";
 
 @Injectable({
@@ -40,4 +39,9 @@ export class TemplatesService {
       template_id: id,
     })
   }
+}
+
+interface RawItem {
+  value: number;
+  display: string;
 }

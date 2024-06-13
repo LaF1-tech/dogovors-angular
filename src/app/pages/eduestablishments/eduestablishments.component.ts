@@ -5,14 +5,11 @@ import {MatButton} from "@angular/material/button";
 import {EducationEstablishmentsService} from "../../services/education-establishments.service";
 import {EducationalEstablishment} from "../../models/educationalestablishment";
 import {filter, Observable, switchMap, take} from "rxjs";
-import {FormConfigDialogComponent} from "../../dialog/form-config-dialog/form-config-dialog.component";
-import {FormConfigControls} from "@likdan/form-builder-core";
-import {Controls} from "@likdan/form-builder-material";
 import {MatDialog} from "@angular/material/dialog";
 import {MatSort, MatSortHeader} from "@angular/material/sort";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
-import {Validators} from "@angular/forms";
+import {DialogComponent} from "./dialog/dialog.component";
 
 
 @Component({
@@ -76,27 +73,13 @@ export class EduestablishmentsComponent implements AfterViewInit {
   }
 
   private openDialog(value?: any): Observable<any> {
-    return this.dialog.open(FormConfigDialogComponent, {
+    return this.dialog.open(DialogComponent, {
       data: {
-        controls: <FormConfigControls>{
-          educational_establishment_id: {
-            type: Controls.select,
-            label: "",
-          },
-          educational_establishment_name: {
-            type: Controls.textInput,
-            label: "Имя учреждения образования",
-            validators: [Validators.required]
-          },
-          educational_establishment_contact_phone: {
-            type: Controls.textInput,
-            label: "Контактный номер телефона",
-            validators: [Validators.required]
-          }
-        },
-        initial: value
+        initial: {
+          educational_establishment_name: value?.educational_establishment_name ?? '',
+          educational_establishment_contact_phone: value?.educational_establishment_contact_phone ?? '',
+        }
       },
-      disableClose: true,
     }).afterClosed()
   }
 }

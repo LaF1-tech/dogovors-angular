@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {BaseChartDirective} from "ng2-charts";
 import {ChartsService} from "../../../services/charts.service";
 import {take} from "rxjs";
@@ -17,6 +17,7 @@ import {Router} from "@angular/router";
   styleUrl: './specialization-chart.component.scss'
 })
 export class SpecializationChartComponent implements OnInit {
+  @ViewChild('chart') chart!: ElementRef<HTMLCanvasElement>;
   public SystemName: string = "Договора"
   public lineChartData: Array<number> = []
   public lineChartLabels: Array<string> = [];
@@ -69,5 +70,18 @@ export class SpecializationChartComponent implements OnInit {
 
   backToAdmin() {
     this.router.navigate(['/admin/charts'])
+  }
+
+  exportChart() {
+    if (this.chart && this.chart.nativeElement) {
+      const canvas = this.chart.nativeElement;
+      const url = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'chart.png';
+      link.click();
+    } else {
+      console.error('Canvas element not found!');
+    }
   }
 }

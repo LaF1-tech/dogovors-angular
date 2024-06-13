@@ -19,13 +19,13 @@
 
     <!-- Weight Column -->
     <ng-container matColumnDef="employee_first_name">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header> Имя работника</th>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Имя работника одобрявшего заявку</th>
       <td *matCellDef="let element" mat-cell> {{ element.employee_first_name }}</td>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="employee_last_name">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header> Фамилия работника</th>
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Фамилия работника одобрявшего заявку</th>
       <td *matCellDef="let element" mat-cell> {{ element.employee_last_name }}</td>
     </ng-container>
 
@@ -33,6 +33,11 @@
     <ng-container matColumnDef="template_name">
       <th *matHeaderCellDef mat-header-cell mat-sort-header> Тип заявки</th>
       <td *matCellDef="let element" mat-cell> {{ element.template_name }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="contract_status">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Статус договора</th>
+      <td *matCellDef="let element" mat-cell> {{ element.contract_status }}</td>
     </ng-container>
 
     <!-- Symbol Column -->
@@ -51,6 +56,7 @@
       <th *matHeaderCellDef mat-header-cell> Действия</th>
       <td *matCellDef="let element" mat-cell>
         <button (click)="downloadPDF(element.contract_id)" mat-flat-button>Скачать PDF</button>
+        <button (click)="edit(element)" mat-flat-button>Изменить статус</button>
       </td>
     </ng-container>
 

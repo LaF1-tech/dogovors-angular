@@ -1,0 +1,13 @@
+<div class="main-container">
+  <form (ngSubmit)="onSubmit()" [formGroup]="mainForm">
+    <mat-form-field>
+      <mat-label>Статус договора</mat-label>
+      <mat-select class="example-full-width" [formControlName]="'contract_status'">
+        @for (status of contractStatuses; track status) {
+          <mat-option [value]="status.value">{{ status.viewValue }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    <button class="example-full-width" mat-flat-button type="submit">Подтвердить</button>
+  </form>
+</div>

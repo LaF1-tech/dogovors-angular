@@ -1,0 +1,17 @@
+<div class="main-container">
+  <form (ngSubmit)="onSubmit()" [formGroup]="mainForm">
+    <mat-form-field class="example-full-width">
+      <mat-label>Имя учреждения образования</mat-label>
+      <input [formControlName]="'educational_establishment_name'" id="educational-establishment-name" matInput
+             type="text">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Контактный номер учреждения образования</mat-label>
+      <input [formControlName]="'educational_establishment_contact_phone'" [mask]="'00 0000000'" [showMaskTyped]="true"
+             id="educational-establishment-contact-phone"
+             matInput placeholder="+375 __ _______"
+             prefix="+375 " type="text">
+    </mat-form-field>
+    <button class="example-full-width" mat-flat-button type="submit">Подтвердить</button>
+  </form>
+</div>

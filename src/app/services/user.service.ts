@@ -25,7 +25,7 @@ export class UserService {
     })
   }
 
-  signIn(user: any){
+  signIn(user: any) {
     return this.http.post("/api/v1/users/login", {
       username: user.username.toLowerCase(),
       password: user.password,

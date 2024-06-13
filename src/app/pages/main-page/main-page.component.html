@@ -1,3 +1,66 @@
 <div class="main-container">
-  <fb [config]="form" class="form-main"/>
+  <form (ngSubmit)="onSubmit()" [formGroup]="mainForm" class="form-main">
+    <mat-form-field class="example-full-width">
+      <mat-label>Учреждение образования</mat-label>
+      <mat-select [formControlName]="'educational_establishment_id'">
+        @for (edu of educationalEstablishments; track edu) {
+          <mat-option [value]="edu.value">{{ edu.display }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Специальность</mat-label>
+      <mat-select [formControlName]="'specialization_id'">
+        @for (specializiton of specializations; track specializiton) {
+          <mat-option [value]="specializiton.value">{{ specializiton.display }}</mat-option>
+        }
+      </mat-select>
+
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Фамилия</mat-label>
+      <input [formControlName]="'last_name'" id="last-name" matInput type="text">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Имя</mat-label>
+      <input [formControlName]="'name'" id="first-name" matInput type="text">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Отчество</mat-label>
+      <input [formControlName]="'middle_name'" id="middlename" matInput type="text">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Номер телефона</mat-label>
+      <input [formControlName]="'phone_number'" [mask]="'00 0000000'" [showMaskTyped]="true" id="phoneNumber" matInput
+             placeholder="+375 __ _______"
+             prefix="+375 " type="text">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Дата действия</mat-label>
+      <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+        <input [formControlName]="'start'" matStartDate placeholder="Дата начала действия">
+        <input [formControlName]="'end'" matEndDate placeholder="Дата окончания действия">
+      </mat-date-range-input>
+      <mat-datepicker-toggle [for]="picker" matIconSuffix></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Тип заявки</mat-label>
+      <mat-select [formControlName]="'types'" multiple>
+        @for (type of types; track type) {
+          <mat-option [value]="type.value">{{ type.display }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+
+    <button [disabled]="false" class="example-full-width" mat-flat-button type="submit">Отправить</button>
+  </form>
 </div>

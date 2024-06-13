@@ -18,6 +18,10 @@ export class MainComponent {
     this.router.navigate(['/periodchart'])
   }
 
+  toUserPeriodChart() {
+    this.router.navigate(['/perioduserchart'])
+  }
+
   toEducationalChart() {
     this.router.navigate(['/educhart'])
 

@@ -7,12 +7,13 @@
 
     <div class="template-content-section">
       <mat-form-field class="example-full-width">
-        <mat-label>Внутренности шаблона</mat-label>
+        <mat-label>Наполнение шаблона</mat-label>
         <textarea [defaultValue]="defval" formControlName="template_content" matInput required></textarea>
       </mat-form-field>
       <div class="template-buttons">
-        <button (click)="insertTemplateVariable('{{ .student_last_name }} {{ .student_name }} {{ .student_middle_name }}')"
-                mat-button>
+        <button
+          (click)="insertTemplateVariable('{{ .student_last_name }} {{ .student_name }} {{ .student_middle_name }}')"
+          mat-button>
           Добавить ФИО студента
         </button>
         <button (click)="insertTemplateVariable('{{ .execution_date }}')" mat-button>Добавить Дату исполнения</button>

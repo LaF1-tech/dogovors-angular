@@ -30,6 +30,10 @@ export const routes: Routes = [
       }, {
         path: "charts",
         loadComponent: () => import("src/app/pages/charts/main/main.component").then((m) => m.MainComponent)
+      },
+      {
+        path: "**",
+        redirectTo: "admin"
       }
     ],
   },
@@ -40,6 +44,10 @@ export const routes: Routes = [
   {
     path: "periodchart",
     loadComponent: () => import("src/app/pages/charts/periodChart/period-chart.component").then(c => c.PeriodChartComponent)
+  },
+  {
+    path: "perioduserchart",
+    loadComponent: () => import("src/app/pages/charts/period-user-chart/period-user-chart.component").then(c => c.PeriodUserChartComponent)
   },
   {
     path: "educhart",

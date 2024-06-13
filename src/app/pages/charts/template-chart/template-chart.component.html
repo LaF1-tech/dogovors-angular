@@ -1,7 +1,9 @@
-<button (click)="this.backToAdmin()" mat-button>back like i never left</button>
+<button (click)="this.backToAdmin()" mat-button>Назад в админ-панель</button>
+<button (click)="this.exportChart()" mat-button>Экспорт отчета</button>
 
 <div class="chart" style="display: block;">
-  <canvas [datasets]="labelMFL"
+  <canvas #chart
+          [datasets]="labelMFL"
           [height]="125"
           [labels]="lineChartLabels"
           [options]="lineChartOptions"

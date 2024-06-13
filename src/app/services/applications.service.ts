@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map, Observable, take} from "rxjs";
-import {Application} from "../models/application";
+import {Application, ApplicationReq} from "../models/application";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,10 @@ export class ApplicationsService {
   getApplications(): Observable<Application[]> {
     return this.http.get<{ list: Application[] }>("/api/v1/applications")
       .pipe(map(e => e.list))
+  }
+
+  create(application: ApplicationReq) {
+    return this.http.post("/api/v1/applications/create", application)
   }
 
   makeApproved(id: number) {

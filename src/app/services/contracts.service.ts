@@ -14,6 +14,12 @@ export class ContractsService {
       .pipe(map(e => e.list))
   }
 
+  patchStatus(contract: any, contractId: number) {
+    return this.http.patch('/api/v1/contracts', {
+      ...contract,
+      contract_id: contractId
+    })
+  }
 
   downloadPDF(id: number): Observable<Blob> {
     return this.http.get(`/api/v1/contracts/pdf/${id}`, {responseType: 'blob'})

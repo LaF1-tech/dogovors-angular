@@ -17,6 +17,12 @@ export class ChartsService {
       .pipe(map(e => e.list))
   }
 
+  getPeriodUserChartData(dateRange: any): Observable<PeriodChart[]> {
+    return this.http.put<{ list: PeriodChart[] }>("/api/v1/charts/userperiod", {
+      ...dateRange
+    }).pipe(map(e => e.list))
+  }
+
   getEducationalEstablishmentChartData(): Observable<EducationalEstablishmentsChart[]> {
     return this.http.get<{ list: EducationalEstablishmentsChart[] }>("/api/v1/charts/educationalestablishments")
       .pipe(map(e => e.list))

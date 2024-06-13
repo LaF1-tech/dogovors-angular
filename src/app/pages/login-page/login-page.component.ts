@@ -44,10 +44,10 @@ export class LoginPageComponent {
       buttonText: "Войти",
       onSubmit: (user) => this.userService.signIn(user.value)
         .pipe(take(1))
-        .subscribe(()=>{
+        .subscribe(() => {
           alert('Успешно вошел')
           this.router.navigate(['/admin'])
-      })
+        })
     }
   }
 }

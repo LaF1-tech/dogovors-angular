@@ -81,19 +81,16 @@ export class SpecializationsComponent implements AfterViewInit {
     return this.dialog.open(FormConfigDialogComponent, {
       data: {
         controls: <FormConfigControls>{
-          specialization_id: {
-            label: "",
-            type: Controls.select,
-          },
           specialization_name: {
             type: Controls.textInput,
             label: "Имя специальности",
             validators: [Validators.required],
           }
         },
-        initial: value
+        initial: {
+          specialization_name: value?.specialization_name ?? ''
+        }
       },
-      disableClose: true,
     }).afterClosed()
   }
 
