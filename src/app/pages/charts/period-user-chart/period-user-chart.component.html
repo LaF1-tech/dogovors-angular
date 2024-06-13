@@ -1,32 +1,35 @@
-<button (click)="this.backToAdmin()" mat-button>Назад в админ-панель</button>
-@if (this.labelMFL.length !== 0) {
-  <button (click)="this.exportChart()" mat-button>Экспорт отчета</button>
-}
-<div class="chart" style="display: block;">
-  <div class="main-container">
-    @if (!this.isLoading) {
-      <form (ngSubmit)="onSubmit()">
-        <mat-form-field class="example-full-width">
-          <mat-label>Дата действия</mat-label>
-          <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
-            <input [formControlName]="'start'" matStartDate placeholder="Дата начала действия">
-            <input [formControlName]="'end'" matEndDate placeholder="Дата окончания действия">
-          </mat-date-range-input>
-          <mat-datepicker-toggle [for]="picker" matIconSuffix></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-        </mat-form-field>
-        <button mat-flat-button class="example-full-width" color="primary" type="submit" [disabled]="!range.valid">
-          Показать данные
-        </button>
-      </form>
+<div class="chart-container">
+  <div class="chart-buttons">
+    <button (click)="this.backToAdmin()" mat-button>Назад в админ-панель</button>
+    @if (this.labelMFL.length !== 0) {
+      <button (click)="this.exportChart()" mat-button>Экспорт отчета</button>
     }
   </div>
-  <canvas #chart
-          [datasets]="labelMFL"
-          [labels]="lineChartLabels"
-          [options]="lineChartOptions"
-          [type]="'bar'"
-          baseChart
-          height="125"
-  ></canvas>
+  <div class="chart" style="display: block;">
+    <div class="main-container">
+      @if (!this.isLoading) {
+        <form (ngSubmit)="onSubmit()">
+          <mat-form-field class="example-full-width">
+            <mat-label>Дата действия</mat-label>
+            <mat-date-range-input [formGroup]="range" [rangePicker]="picker">
+              <input [formControlName]="'start'" matStartDate placeholder="Дата начала действия">
+              <input [formControlName]="'end'" matEndDate placeholder="Дата окончания действия">
+            </mat-date-range-input>
+            <mat-datepicker-toggle [for]="picker" matIconSuffix></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+          <button mat-flat-button class="example-full-width" color="primary" type="submit" [disabled]="!range.valid">
+            Показать данные
+          </button>
+        </form>
+      }
+    </div>
+    <canvas #chart
+            [datasets]="labelMFL"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [type]="'bar'"
+            baseChart
+    ></canvas>
+  </div>
 </div>

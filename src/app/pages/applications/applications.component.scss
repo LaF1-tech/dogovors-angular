@@ -2,10 +2,45 @@ table {
   width: 100%;
   background-color: var(--secondary-background-color);
 
+  @media (max-width: 600px) {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }
 
 .main-container {
-  padding: 19px;
+  padding-left: 12px;
   align-content: center;
   width: 100%;
+}
+
+.mat-paginator {
+  background-color: var(--secondary-background-color);
+  display: flex;
+  justify-content: center;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.search-field {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 20px;
+
+  @media (max-width: 600px) {
+    max-width: 100%;
+  }
+}
+
+.mat-header-cell, .mat-cell {
+  padding: 8px 16px;
+
+  @media (max-width: 600px) {
+    padding: 8px;
+    font-size: 14px;
+  }
 }

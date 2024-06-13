@@ -7,5 +7,33 @@
   padding-bottom: 12px;
   color: var(--text-color);
   justify-content: flex-start;
+  flex-direction: column;
+  overflow-x: auto;
 }
 
+.mat-tree-container {
+  background: var(--secondary-background-color);
+  border-radius: 23px;
+  height: 380px;
+  width: 100%;
+  max-width: 300px;
+  align-content: center;
+  margin-bottom: 12px;
+}
+
+@media (min-width: 600px) {
+  .main-container {
+    flex-direction: row;
+  }
+  .mat-tree-container {
+    font-size: 0.7em;
+    text-align: left;
+    width: 50%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mat-tree-container {
+    width: 300px;
+  }
+}

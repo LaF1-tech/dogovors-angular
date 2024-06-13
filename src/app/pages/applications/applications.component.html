@@ -1,9 +1,9 @@
 <div class="main-container">
-  <mat-form-field>
+  <mat-form-field class="search-field">
     <mat-label>Поиск</mat-label>
     <input #input (keyup)="applyFilter(input.value)" matInput placeholder="Поиск">
   </mat-form-field>
-  <table [dataSource]="dataSource" mat-table matSort>
+  <table class="table-responsive" [dataSource]="dataSource" mat-table matSort>
 
     <!-- Position Column -->
     <ng-container matColumnDef="educational_establishment_name">
@@ -69,8 +69,10 @@
       <th *matHeaderCellDef mat-header-cell> Действие</th>
       <td *matCellDef="let element" mat-cell>
         @if (element.application_status === 'В процессе') {
-          <button mat-flat-button (click)="makeApproved(element.id)">Одобрить</button>
-          <button mat-flat-button (click)="makeRejected(element.id)">Отклонить</button>
+          <ng-container>
+            <button mat-flat-button (click)="makeApproved(element.id)">Одобрить</button>
+            <button mat-flat-button (click)="makeRejected(element.id)">Отклонить</button>
+          </ng-container>
         }
       </td>
     </ng-container>
@@ -80,8 +82,7 @@
   </table>
 
   <mat-paginator [pageSizeOptions]="[5, 10]"
-                 aria-label="Select page of periodic elements"
                  showFirstLastButtons
-                 style="background-color: var(--secondary-background-color)">
+                 class="mat-paginator">
   </mat-paginator>
 </div>

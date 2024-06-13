@@ -6,7 +6,7 @@
   </mat-form-field>
   <button (click)="add()" mat-button>Добавить</button>
 
-  <table [dataSource]="dataSource" mat-table matSort>
+  <table class="table-responsive" [dataSource]="dataSource" mat-table matSort>
 
     <!-- Position Column -->
     <ng-container matColumnDef="specialization_name">
@@ -17,8 +17,10 @@
     <ng-container matColumnDef="actionbuttons">
       <th *matHeaderCellDef mat-header-cell> Действия</th>
       <td *matCellDef="let element" mat-cell>
-        <button (click)="edit(element)" mat-flat-button>Редактировать</button>
-        <button (click)="deleteSpecialization(element.specialization_id)" mat-flat-button>Удалить</button>
+        <ng-container>
+          <button (click)="edit(element)" mat-flat-button>Редактировать</button>
+          <button (click)="deleteSpecialization(element.specialization_id)" mat-flat-button>Удалить</button>
+        </ng-container>
       </td>
     </ng-container>
 
@@ -27,8 +29,7 @@
   </table>
 
   <mat-paginator [pageSizeOptions]="[5, 10]"
-                 aria-label="Select page of periodic elements"
                  showFirstLastButtons
-                 style="background-color: var(--secondary-background-color)">
+                 class="mat-paginator">
   </mat-paginator>
 </div>

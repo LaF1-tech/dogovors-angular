@@ -1,14 +1,16 @@
-<button (click)="this.backToAdmin()" mat-button>Назад в админ-панель</button>
-<button (click)="this.exportChart()" mat-button>Экспорт отчета</button>
+<div class="chart-container">
+  <div class="chart-buttons">
+    <button (click)="this.backToAdmin()" mat-button>Назад в админ-панель</button>
+    <button (click)="this.exportChart()" mat-button>Экспорт отчета</button>
+  </div>
+  <div class="chart" style="display: block;">
+    <canvas #chart
+            [datasets]="labelMFL"
+            [labels]="lineChartLabels"
+            [options]="lineChartOptions"
+            [type]="'bar'"
+            baseChart
+    ></canvas>
 
-<div class="chart" style="display: block;">
-  <canvas #chart
-          [datasets]="labelMFL"
-          [height]="125"
-          [labels]="lineChartLabels"
-          [options]="lineChartOptions"
-          [type]="'bar'"
-          baseChart
-  ></canvas>
-
+  </div>
 </div>

@@ -1,9 +1,9 @@
 <div class="main-container">
-  <mat-form-field>
+  <mat-form-field class="search-field">
     <mat-label>Поиск</mat-label>
     <input #input (keyup)="applyFilter(input.value)" matInput placeholder="Поиск">
   </mat-form-field>
-  <table [dataSource]="dataSource" mat-table matSort>
+  <table class="table-responsive" [dataSource]="dataSource" mat-table matSort>
 
     <!-- Position Column -->
     <ng-container matColumnDef="student_name">
@@ -57,8 +57,10 @@
       <td *matCellDef="let element" mat-cell>
 
         @if (element.contract_status !== 'Исполнено' && element.contract_status !== 'Не исполнено') {
-          <button (click)="downloadPDF(element.contract_id)" mat-flat-button>Скачать PDF</button>
-          <button (click)="edit(element)" mat-flat-button>Изменить статус</button>
+          <ng-container>
+            <button (click)="downloadPDF(element.contract_id)" mat-flat-button>Скачать PDF</button>
+            <button (click)="edit(element)" mat-flat-button>Изменить статус</button>
+          </ng-container>
         }
 
       </td>
@@ -69,8 +71,7 @@
   </table>
 
   <mat-paginator [pageSizeOptions]="[5, 10]"
-                 aria-label="Select page of periodic elements"
                  showFirstLastButtons
-                 style="background-color: var(--secondary-background-color)">
+                 class="mat-paginator">
   </mat-paginator>
 </div>

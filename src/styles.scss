@@ -31,6 +31,7 @@ $m3-light-theme: mat.define-theme((
 
 * {
   font-family: "Roboto Flex", serif;
+  box-sizing: border-box;
 }
 
 :root {

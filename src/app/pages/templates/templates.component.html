@@ -1,11 +1,11 @@
 <div class="main-container">
-  <mat-form-field>
+  <mat-form-field class="search-field">
     <mat-label>Поиск</mat-label>
     <input #input (keyup)="applyFilter(input.value)" matInput placeholder="Поиск">
   </mat-form-field>
   <button (click)="this.add()" mat-button>Добавить</button>
 
-  <table [dataSource]="dataSource" mat-table matSort>
+  <table class="table-responsive" [dataSource]="dataSource" mat-table matSort>
 
     <!-- Position Column -->
     <ng-container matColumnDef="template_name">
@@ -16,8 +16,10 @@
     <ng-container matColumnDef="actionbuttons">
       <th *matHeaderCellDef mat-header-cell> Действия</th>
       <td *matCellDef="let element" mat-cell>
-        <button (click)="this.edit(element.template_id)" mat-flat-button>Редактировать</button>
-        <button (click)="deleteTemplate(element.template_id)" mat-flat-button>Удалить</button>
+        <ng-container>
+          <button (click)="this.edit(element.template_id)" mat-flat-button>Редактировать</button>
+          <button (click)="deleteTemplate(element.template_id)" mat-flat-button>Удалить</button>
+        </ng-container>
       </td>
     </ng-container>
 
@@ -26,8 +28,7 @@
   </table>
 
   <mat-paginator [pageSizeOptions]="[5, 10]"
-                 aria-label="Select page of periodic elements"
                  showFirstLastButtons
-                 style="background-color: var(--secondary-background-color)">
+                 class="mat-paginator">
   </mat-paginator>
 </div>
