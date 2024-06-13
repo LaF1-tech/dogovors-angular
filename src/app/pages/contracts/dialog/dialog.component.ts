@@ -33,7 +33,7 @@ export class DialogComponent {
     {value: 'Проверено', viewValue: 'Проверено'},
     {value: 'Утверждено', viewValue: 'Утверждено'},
     {value: 'Исполнено', viewValue: 'Исполнено'},
-    {value: 'Неисполнено', viewValue: 'Неисполнено'}
+    {value: 'Не исполнено', viewValue: 'Не исполнено'}
   ];
 
   mainForm = new FormGroup({

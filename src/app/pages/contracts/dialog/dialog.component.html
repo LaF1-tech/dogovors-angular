@@ -1,8 +1,8 @@
 <div class="main-container">
   <form (ngSubmit)="onSubmit()" [formGroup]="mainForm">
-    <mat-form-field>
+    <mat-form-field class="example-full-width">
       <mat-label>Статус договора</mat-label>
-      <mat-select [formControlName]="'contract_status'" class="example-full-width">
+      <mat-select [formControlName]="'contract_status'">
         @for (status of contractStatuses; track status) {
           <mat-option [value]="status.value">{{ status.viewValue }}</mat-option>
         }

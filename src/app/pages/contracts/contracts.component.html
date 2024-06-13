@@ -55,8 +55,12 @@
     <ng-container matColumnDef="actionbuttons">
       <th *matHeaderCellDef mat-header-cell> Действия</th>
       <td *matCellDef="let element" mat-cell>
-        <button (click)="downloadPDF(element.contract_id)" mat-flat-button>Скачать PDF</button>
-        <button (click)="edit(element)" mat-flat-button>Изменить статус</button>
+
+        @if (element.contract_status !== 'Исполнено' && element.contract_status !== 'Не исполнено') {
+          <button (click)="downloadPDF(element.contract_id)" mat-flat-button>Скачать PDF</button>
+          <button (click)="edit(element)" mat-flat-button>Изменить статус</button>
+        }
+
       </td>
     </ng-container>
 
