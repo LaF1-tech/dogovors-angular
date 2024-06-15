@@ -1,0 +1,57 @@
+<div class="main-container">
+  <mat-form-field class="search-field">
+    <mat-label>Поиск</mat-label>
+    <input #input (keyup)="applyFilter(input.value)" matInput placeholder="Поиск">
+  </mat-form-field>
+  <button (click)="add(this.Id)" mat-button>Добавить</button>
+
+  <table class="table-responsive" [dataSource]="dataSource" mat-table matSort>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="template_name">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Тип заявки</th>
+      <td *matCellDef="let element" mat-cell> {{ element.template_name }}</td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="student_last_name">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Фамилия студента</th>
+      <td *matCellDef="let element" mat-cell> {{ element.student_last_name }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="student_name">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Имя студента</th>
+      <td *matCellDef="let element" mat-cell> {{ element.student_name }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="contract_status">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Статус исполнения</th>
+      <td *matCellDef="let element" mat-cell> {{ element.contract_status }}</td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="control_date">
+      <th *matHeaderCellDef mat-header-cell mat-sort-header> Дата</th>
+      <td *matCellDef="let element" mat-cell> {{ element.control_date | date }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actionbuttons">
+      <th *matHeaderCellDef mat-header-cell> Действия</th>
+      <td *matCellDef="let element" mat-cell>
+        <ng-container>
+          <button (click)="edit(element)" mat-flat-button>Редактировать</button>
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10]"
+                 showFirstLastButtons
+                 class="mat-paginator">
+  </mat-paginator>
+</div>

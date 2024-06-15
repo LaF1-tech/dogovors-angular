@@ -41,9 +41,9 @@ export class MainPageComponent implements OnInit {
     end: new FormControl<Date | null>(null, [Validators.required]),
   });
   mainForm = new FormGroup({
-    name: new FormControl<string>('', [Validators.required]),
-    last_name: new FormControl<string>('', [Validators.required]),
-    middle_name: new FormControl<string>('', [Validators.required]),
+    name: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
+    last_name: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
+    middle_name: new FormControl<string>('', [Validators.required, Validators.minLength(3)]),
     educational_establishment_id: new FormControl<number>(0, [Validators.required]),
     specialization_id: new FormControl<number>(0, [Validators.required]),
     types: new FormControl<any>([], [Validators.required]),

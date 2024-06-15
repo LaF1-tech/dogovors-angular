@@ -5,7 +5,6 @@ import {NgxMaskDirective} from "ngx-mask";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
 import {MatInput} from "@angular/material/input";
 import {MatButton} from "@angular/material/button";
-import {EducationEstablishmentsService} from "../../../services/education-establishments.service";
 import {SubmitEvent} from "@likdan/form-builder-core";
 
 export interface Data {
@@ -25,10 +24,9 @@ export class DialogComponent implements OnInit {
   data = inject<Data>(MAT_DIALOG_DATA)
   dialogRef = inject(MatDialogRef)
   mainForm = new FormGroup({
-    educational_establishment_name: new FormControl<string>(this.data.initial.educational_establishment_name, [Validators.required]),
+    educational_establishment_name: new FormControl<string>(this.data.initial.educational_establishment_name, [Validators.required, Validators.minLength(3)]),
     educational_establishment_contact_phone: new FormControl<string>(this.data.initial.educational_establishment_contact_phone, [Validators.required]),
   });
-  private educationalEstablishmentService = inject(EducationEstablishmentsService)
 
   ngOnInit() {
     if (this.data.initial) {

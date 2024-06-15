@@ -26,12 +26,14 @@ export const routes: Routes = [
         loadComponent: () => import("src/app/pages/templates/templates.component").then((m) => m.TemplatesComponent)
       }, {
         path: "contracts",
-        loadComponent: () => import("src/app/pages/contracts/contracts.component").then((m) => m.ContractsComponent)
+        loadComponent: () => import("src/app/pages/contracts/contracts.component").then((m) => m.ContractsComponent),
+      }, {
+        path: "contracts/:id",
+        loadComponent: () => import("src/app/pages/contracts/execution-control/execution-control.component").then((m) => m.ExecutionControlComponent),
       }, {
         path: "charts",
         loadComponent: () => import("src/app/pages/charts/main/main.component").then((m) => m.MainComponent)
-      },
-      {
+      }, {
         path: "**",
         redirectTo: "admin"
       }

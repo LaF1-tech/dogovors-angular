@@ -35,11 +35,6 @@
       <td *matCellDef="let element" mat-cell> {{ element.template_name }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="contract_status">
-      <th *matHeaderCellDef mat-header-cell mat-sort-header> Статус договора</th>
-      <td *matCellDef="let element" mat-cell> {{ element.contract_status }}</td>
-    </ng-container>
-
     <!-- Symbol Column -->
     <ng-container matColumnDef="execution_date">
       <th *matHeaderCellDef mat-header-cell mat-sort-header> Дата исполнения</th>
@@ -56,12 +51,11 @@
       <th *matHeaderCellDef mat-header-cell> Действия</th>
       <td *matCellDef="let element" mat-cell>
 
-        @if (element.contract_status !== 'Исполнено' && element.contract_status !== 'Не исполнено') {
-          <ng-container>
-            <button (click)="downloadPDF(element.contract_id)" mat-flat-button>Скачать PDF</button>
-            <button (click)="edit(element)" mat-flat-button>Изменить статус</button>
-          </ng-container>
-        }
+        <ng-container>
+          <button (click)="downloadPDF(element.contract_id)" mat-flat-button>Скачать PDF</button>
+          <button (click)="control(element.contract_id)" mat-flat-button>Контроль</button>
+        </ng-container>
+
 
       </td>
     </ng-container>

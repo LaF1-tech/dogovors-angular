@@ -1,0 +1,16 @@
+<div class="main-container">
+  <form (ngSubmit)="onSubmit()" [formGroup]="mainForm">
+    <mat-form-field class="example-full-width">
+      <mat-label>Статус исполнения</mat-label>
+      <input [formControlName]="'contract_status'" id="contract-status" matInput
+             type="text">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Дата</mat-label>
+      <input matInput [formControlName]="'control_date'" [matDatepicker]="picker">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <button class="example-full-width" mat-flat-button type="submit">Подтвердить</button>
+  </form>
+</div>
